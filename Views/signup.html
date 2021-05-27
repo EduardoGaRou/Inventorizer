@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Inventorizer Web App</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+	<link rel="icon" type="image/png" href="../resources/css/box.png" />
+	<link rel="stylesheet" type="text/css" href="../resources/css/signupStyles.css">
+	<script type="text/javascript" src="../resources/js/signupScripts.js"></script>
+</head>
+<body>
+	<div class="container mt-4">
+		<div class="row">
+			<div class="col-12 signupForm">
+				<!--Header-->
+				<div class="row header mt-4">
+					<!--Icon-->
+					<div class="col-md-4 d-flex justify-content-center align-items-center mb-4">
+						<img width="250" height="250" src="../resources/css/box.png">
+					</div>
+					<!--Title-->
+					<div class="col-md-8 d-flex justify-content-center align-items-center mb-4">
+						<h1>Inventorizer Web App</h1>
+					</div>
+				</div>
+				<!--Signup form-->
+				<div class="row d-flex justify-content-center mx-5">
+				<!--form class="row g-3 mx-5" action="" method="post"-->
+					<!--User entry-->
+					<div class="col-md-6 mb-3 mt-3">
+						<div class="row">
+							<div class="col-1">
+								<label for="SignUser" class="d-flex justify-content-center align-items-center"><i class="fas fa-user"></i></label>
+							</div>
+							<div class="col">
+								<p class="h5">Enter username:</p>
+							</div>
+						</div>
+						<input type="text" class="form-control g-3" id="SignUser" onkeyup="validateUser(this.value)">
+					</div>
+					<!--Display name entry-->
+					<div class="col-md-6 mb-3 mt-3">
+						<div class="row">
+							<div class="col-1">
+								<label for="SignDisplayName" class="d-flex justify-content-center align-items-center"><i class="fas fa-id-card"></i></label>
+							</div>
+							<div class="col">
+								<p class="h5">Enter display name:</p>
+							</div>
+						</div>
+						<input type="text" class="form-control g-3" id="SignDisplayName" onkeyup="validateDisplay(this.value)">
+					</div>
+					<!--Invalid user banner-->
+					<div class="col-md-6 mb-3">
+						<p id="invalidUser" class="h5 erralert" hidden>This user already exists</p>
+					</div>
+					<!--Invalid display name banner-->
+					<div class="col-md-6 mb-3">
+						<p id="invalidDisplay" class="h5 erralert" hidden>Display name cannot be empty</p>
+					</div>
+					<!--Email entry-->
+					<!--div class="row">
+						<div class="col-md-6 mt-3">
+							<div class="row">
+								<div class="col-1">
+									<label for="SignEmail" class="d-flex justify-content-center align-items-center"><i class="fas fa-at"></i></label>
+								</div>
+								<div class="col">
+									<p class="h5">Enter email:</p>
+								</div>
+								<div class="col-md-6">
+									<p  id="invalidEmail" class="h5 erralert" hidden>Entered email is not valid</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 mb-3">
+							<input type="email" class="form-control" id="SignEmail" onkeyup="validateEmail(this.value)">
+						</div>
+					</div-->
+					<div class="col-md-6 mb-3 mt-3">
+						<div class="row">
+							<div class="col-1">
+								<label for="SignEmail" class="d-flex justify-content-center align-items-center"><i class="fas fa-at"></i></label>
+							</div>
+							<div class="col">
+								<p class="h5">Enter email:</p>
+							</div>
+						</div>
+						<input type="email" class="form-control" id="SignEmail" onkeyup="validateEmail(this.value)">
+					</div>
+					<div class="col-md-6 mb-3 mt-3 d-flex justify-content-center align-items-center">
+						<p  id="invalidEmail" class="h5 erralert" hidden>Entered email is not valid</p>
+					</div>
+					<!--Password entry-->
+					<div class="col-md-6 mb-3 mt-3">
+						<div class="row">
+							<div class="col-1">
+								<label for="SignPassword" class="d-flex justify-content-center align-items-center"><i class="fas fa-lock"></i></label>
+							</div>
+							<div class="col">
+								<p class="h5">Enter password:</p>
+							</div>
+						</div>
+						<input type="password" class="form-control" id="SignPassword" onkeyup="validatePass(this.value)" onkeydown="validateConfirm(this.value,SignConfirm.value)">
+					</div>
+					<!--Confirm password entry-->
+					<div class="col-md-6 mb-3 mt-3">
+						<div class="row">
+							<div class="col-1">
+								<label for="SignConfirm" class="d-flex justify-content-center align-items-center"><i class="fas fa-check-circle"></i></label>
+							</div>
+							<div class="col">
+								<p class="h5">Confirm password:</p>
+							</div>
+						</div>
+						<input type="password" class="form-control" id="SignConfirm" onkeyup="validateConfirm(SignPassword.value,this.value)">
+					</div>
+					<!--Invalid password banner-->
+					<div class="col-md-6 mb-3">
+						<p id="invalidPass" class="h5 erralert" hidden>Password must contain at least 1 number, upper case letter and lower case letter and be between 8 and 20 characters long.</p>
+					</div>
+					<!--Invalid confirm banner-->
+					<div class="col-md-6 mb-3">
+						<p id="invalidConfirm" class="h5 erralert" hidden>Password does not match.</p>
+					</div>
+					<!--Upload form-->
+					<div class="col-md-2 mb-3 mt-3 d-flex justify-content-left">
+						<button id="signupbtn" class="btn btn-primary mb-3" onclick="signup()" disabled>Sign up</button>
+					</div>
+					<!--Link to login-->
+					<div class="col-md-3 mb-3 mt-3 d-flex justify-content-left">
+						<a href="login.html"><button class="btn btn-primary mb-3">Go to login</button></a>
+					</div>
+					<!--div class="col-md-7 mb-3 mt-3 d-flex justify-content-left">
+						<p id="invalidation" class="h5" hidden>Entered user or password is incorrect!</p>
+					</div-->
+				</div>
+				<!--/form-->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

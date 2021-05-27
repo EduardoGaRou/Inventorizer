@@ -1,0 +1,33 @@
+html, body {
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: #1F0322;
+}
+
+h1 {
+  	text-align: center;
+  	font-size: 54px;
+  	font-style: italic;
+  	color: #1F0322;
+}
+
+label {
+	width: 30px;
+  	height: 30px;
+	background-color: #264653;
+	color: #FFFFFF;
+}
+
+.signupForm {
+	background-color: #DCE1DE;
+}
+
+.header {
+	border-bottom: 10px groove #2A9D8F;
+}
+
+.erralert {
+	color: #FF0000 !important;
+}

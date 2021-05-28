@@ -19,6 +19,7 @@ function toggleErrorAndBtn(usr,pass) {
                 } else {
                     document.getElementById("invalidation").hidden = false;
                     document.getElementById("loginbtn").disabled = true;
+                    document.getElementById('InputUser').classList.add("is-invalid");
                     console.log("Bad password");
                 }
             });

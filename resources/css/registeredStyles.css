@@ -2,8 +2,18 @@ html, body {
 	scroll-behavior: smooth;
 }
 
+html {
+	height: 100%;
+}
+
 body {
-	background-color: #1F0322;
+	overflow: hidden;
+	height: 100%;
+	margin: 0;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background: rgb(31, 3, 34);
+	background: linear-gradient(45deg, rgba(31, 3, 34, 1) 40%, rgba(42, 157, 143, 1) 100%);
 }
 
 h1 {
@@ -16,11 +26,11 @@ h1 {
 label {
 	width: 30px;
   	height: 30px;
-	background-color: #264653;
+	background-color: #2A9D8F;
 	color: #FFFFFF;
 }
 
-.signupForm {
+.registeredForm {
 	background-color: #DCE1DE;
 }
 
@@ -30,4 +40,24 @@ label {
 
 .erralert {
 	color: #FF0000 !important;
+}
+
+.btn-primary {
+	border-color: #2A9D8F;
+	background-color: #2A9D8F;
+}
+
+.btn-primary:hover {
+	border-color: #264653;
+	background-color: #264653;
+}
+
+.btn-primary:disabled {
+	border-color: #2A9D8F;
+	background-color: #2A9D8F;
+}
+
+.btn-primary:disabled:hover {
+	border-color: #264653;
+	background-color: #264653;
 }

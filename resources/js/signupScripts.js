@@ -121,6 +121,6 @@ function cipher(str){
     return revPass;
 }
 
-function signup(){
-
+function signup(usr,disp,email,pass){
+	window.location = "./../Controllers/createUser.php?username="+usr+"&displayname="+disp+"&email="+email+"&password="+pass;
 }

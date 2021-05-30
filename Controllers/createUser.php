@@ -50,13 +50,17 @@ if(
 		// response 500 - Internal Server Error
 		http_response_code(500);
 		// message for user
-		echo json_encode(array("log" => "An error occurred with the service. :^("));
+		//echo json_encode(array("log" => "An error occurred with the service. :^("));
+		//Navigate back to 'registered.html' screen
+		echo "<script>window.location='../Views/signup.html'</script>";
 	}
 }
 else {
 	// response 400 - Bad Request
 	http_response_code(400);
 	// message for user
-	echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
+	//echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
+	//Navigate back to 'registered.html' screen
+	echo "<script>window.location='../Views/signup.html'</script>";
 }
 ?>

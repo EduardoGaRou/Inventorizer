@@ -14,144 +14,82 @@
 </head>
 
 <body>
-	<div class="container mt-4">
-		<div class="row">
-			<div class="col-12 signupForm">
-				<!--Header-->
-				<div class="row header mt-4">
-					<!--Icon-->
-					<div class="col-md-4 d-flex justify-content-center align-items-center mb-4">
-						<img width="250" height="250" src="../resources/css/box.png">
-					</div>
-					<!--Title-->
-					<div class="col-md-8 d-flex justify-content-center align-items-center mb-4">
-						<h1>Inventorizer Web App</h1>
-					</div>
-				</div>
-				<!--Signup form-->
-				<div class="row d-flex justify-content-center mx-5">
-					<!--form class="row g-3 mx-5" action="" method="post"-->
-					<!--User entry-->
-					<div class="col-md-6 mb-3 mt-3">
-						<div class="row">
-							<div class="col-1">
-								<label for="SignUser" class="d-flex justify-content-center align-items-center"><i
-										class="fas fa-user"></i></label>
-							</div>
-							<div class="col">
-								<p class="h5">Enter username:</p>
-							</div>
-						</div>
-						<input type="text" class="form-control g-3" id="SignUser" onkeyup="validateUser(this.value)">
-					</div>
-					<!--Display name entry-->
-					<div class="col-md-6 mb-3 mt-3">
-						<div class="row">
-							<div class="col-1">
-								<label for="SignDisplayName" class="d-flex justify-content-center align-items-center"><i
-										class="fas fa-id-card"></i></label>
-							</div>
-							<div class="col">
-								<p class="h5">Enter display name:</p>
-							</div>
-						</div>
-						<input type="text" class="form-control g-3" id="SignDisplayName"
-							onkeyup="validateDisplay(this.value)">
-					</div>
-					<!--Invalid user banner-->
-					<div class="col-md-6 mb-3">
-						<p id="invalidUser" class="h5 erralert" hidden>This user already exists</p>
-					</div>
-					<!--Invalid display name banner-->
-					<div class="col-md-6 mb-3">
-						<p id="invalidDisplay" class="h5 erralert" hidden>Display name cannot be empty</p>
-					</div>
-					<!--Email entry-->
-					<!--div class="row">
-						<div class="col-md-6 mt-3">
-							<div class="row">
-								<div class="col-1">
-									<label for="SignEmail" class="d-flex justify-content-center align-items-center"><i class="fas fa-at"></i></label>
-								</div>
-								<div class="col">
-									<p class="h5">Enter email:</p>
-								</div>
-								<div class="col-md-6">
-									<p  id="invalidEmail" class="h5 erralert" hidden>Entered email is not valid</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12 mb-3">
-							<input type="email" class="form-control" id="SignEmail" onkeyup="validateEmail(this.value)">
-						</div>
-					</div-->
-					<div class="col-md-6 mb-3 mt-3">
-						<div class="row">
-							<div class="col-1">
-								<label for="SignEmail" class="d-flex justify-content-center align-items-center"><i
-										class="fas fa-at"></i></label>
-							</div>
-							<div class="col">
-								<p class="h5">Enter email:</p>
-							</div>
-						</div>
-						<input type="email" class="form-control" id="SignEmail" onkeyup="validateEmail(this.value)">
-					</div>
-					<div class="col-md-6 mb-3 mt-3 d-flex justify-content-center align-items-center">
-						<p id="invalidEmail" class="h5 erralert" hidden>Entered email is not valid</p>
-					</div>
-					<!--Password entry-->
-					<div class="col-md-6 mb-3 mt-3">
-						<div class="row">
-							<div class="col-1">
-								<label for="SignPassword" class="d-flex justify-content-center align-items-center"><i
-										class="fas fa-lock"></i></label>
-							</div>
-							<div class="col">
-								<p class="h5">Enter password:</p>
-							</div>
-						</div>
-						<input type="password" class="form-control" id="SignPassword" onkeyup="validatePass(this.value)"
-							onkeydown="validateConfirm(this.value,SignConfirm.value)">
-					</div>
-					<!--Confirm password entry-->
-					<div class="col-md-6 mb-3 mt-3">
-						<div class="row">
-							<div class="col-1">
-								<label for="SignConfirm" class="d-flex justify-content-center align-items-center"><i
-										class="fas fa-check-circle"></i></label>
-							</div>
-							<div class="col">
-								<p class="h5">Confirm password:</p>
-							</div>
-						</div>
-						<input type="password" class="form-control" id="SignConfirm"
-							onkeyup="validateConfirm(SignPassword.value,this.value)">
-					</div>
-					<!--Invalid password banner-->
-					<div class="col-md-6 mb-3">
-						<p id="invalidPass" class="h5 erralert" hidden>Password must contain at least 1 number, upper
-							case letter and lower case letter and be between 8 and 20 characters long.</p>
-					</div>
-					<!--Invalid confirm banner-->
-					<div class="col-md-6 mb-3">
-						<p id="invalidConfirm" class="h5 erralert" hidden>Password does not match.</p>
-					</div>
-					<!--Upload form-->
-					<div class="col-md-2 mb-3 mt-3 d-flex justify-content-left">
-						<button id="signupbtn" class="btn btn-primary mb-3" onclick="signup()" disabled>Sign up</button>
-					</div>
-					<!--Link to login-->
-					<div class="col-md-3 mb-3 mt-3 d-flex justify-content-left">
-						<a href="login.html"><button class="btn btn-primary mb-3">Go to login</button></a>
-					</div>
-					<!--div class="col-md-7 mb-3 mt-3 d-flex justify-content-left">
-						<p id="invalidation" class="h5" hidden>Entered user or password is incorrect!</p>
-					</div-->
-				</div>
-				<!--/form-->
+	<div class="container mt-4 mb-4 rounded">
+		<!--Header-->
+		<div class="row justify-content-center mb-0">
+			<div class="col-md-8 mb-0 p-4 text-center signupForm rounded-top">
+				<!--Icon-->
+				<img height="200" width="200" src="../resources/css/box.png">
+			</div>
+		</div>
+		<div class="row justify-content-center mb-0">
+			<!--Title-->
+			<div class="col-md-8 mb-0 p-4 text-center signupForm header">
+				<h1>Inventorizer Web App</h1>
+			</div>
+		</div>
+		<div class="row justify-content-center mb-0">
+			<!--User entry-->
+			<div class="col-md-4 signupForm mt-0 p-4">
+				<label for="SignUser" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+					<i class="fas fa-user"></i>
+				</label>
+				<p class="h5">Enter username:</p>
+				<input type="text" class="form-control" id="SignUser" placeholder="Ex. Guy123"
+					onkeyup="validateUser(this.value)">
+				<p id="invalidUser" class="h5 invalid-feedback mt-3" hidden>This user already exists</p>
+			</div>
+			<!--Display name entry-->
+			<div class="col-md-4 signupForm mt-0 p-4">
+				<label for="SignDisplay" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+					<i class="fas fa-id-card"></i>
+				</label>
+				<p class="h5">Enter display name:</p>
+				<input type="text" class="form-control" id="SignDisplay" placeholder="Ex. GuyName"
+					onkeyup="validateDisplay(this.value)">
+				<p id="invalidDisplay" class="h5 invalid-feedback mt-3" hidden>Display name cannot be empty</p>
+			</div>
+		</div>
+		<div class="row justify-content-center mb-0">
+			<!--Email entry-->
+			<div class="col-md-8 signupForm mt-0 p-4">
+				<label for="SignEmail" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+					<i class="fas fa-at"></i>
+				</label>
+				<p class="h5">Enter email address:</p>
+				<input type="text" class="form-control" id="SignEmail" placeholder="Ex. example@mail.com"
+					onkeyup="validateEmail(this.value)">
+				<p id="invalidEmail" class="h5 invalid-feedback mt-3" hidden>Entered email is not valid</p>
+			</div>
+		</div>
+		<div class="row justify-content-center mb-0">
+			<!--Password entry-->
+			<div class="col-md-8 signupForm mt-0 p-4">
+				<label for="SignPassword" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+					<i class="fas fa-lock"></i>
+				</label>
+				<p class="h5">Enter password:</p>
+				<input type="text" class="form-control" id="SignPassword" placeholder="Ex. MyPassword456"
+					onkeyup="validatePass(this.value)">
+				<p id="invalidPass" class="h5 invalid-feedback mt-3" hidden>Password must contain at least 1 number, upper case letter and lower case letter and be between 8 and 20 characters long.</p>
+			</div>
+		</div>
+		<div class="row justify-content-center mb-0">
+			<!--Confirm entry-->
+			<div class="col-md-8 signupForm mt-0 p-4">
+				<label for="SignConfirm" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+					<i class="fas fa-check-circle"></i>
+				</label>
+				<p class="h5">Confirm password:</p>
+				<input type="text" class="form-control" id="SignConfirm" placeholder="Ex. MyPassword456"
+					onkeyup="validatePass(this.value)" onkeydown="validateConfirm(this.value,SignConfirm.value)">
+				<p id="invalidConfirm" class="h5 invalid-feedback mt-3" hidden>Password does not match.</p>
+			</div>
+		</div>
+		<div class="row justify-content-center mt-0">
+			<div class="col-md-8 signupForm mt-0 p-4 text-right rounded-bottom">
+				<button id="signupbtn" class="btn btn-primary mb-3 mr-3" onclick="signup()" disabled>Create account</button>
+				<a href="login.html"><button class="btn btn-primary mb-3 ">Go to Login</button></a>
 			</div>
 		</div>
 	</div>

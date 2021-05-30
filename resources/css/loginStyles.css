@@ -1,21 +1,17 @@
-html,
-body {
+html, body {
 	scroll-behavior: smooth;
 }
 
 html {
-	height: 100%;
+	/*height: 100%;*/
 }
 
 body {
-	overflow: hidden;
-	height: 100%;
+	/*overflow: hidden;*/
+	/*height: 100%;*/
 	margin: 0;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-}
-
-body {
 	background: rgb(31, 3, 34);
 	background: linear-gradient(45deg, rgba(31, 3, 34, 1) 40%, rgba(42, 157, 143, 1) 100%);
 }

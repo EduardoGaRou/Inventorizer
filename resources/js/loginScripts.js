@@ -3,6 +3,8 @@ function toggleErrorAndBtn(usr,pass) {
     if (usr.length == 0 && pass.length == 0) {
         document.getElementById("invalidation").hidden = true;
         document.getElementById("loginbtn").disabled = true;
+        document.getElementById('InputUser').classList.remove("is-invalid");
+        document.getElementById('InputPassword').classList.remove("is-invalid");
         console.log("Empty");
         return;
     }
@@ -15,17 +17,22 @@ function toggleErrorAndBtn(usr,pass) {
                 if(data.password === pass) {
                     document.getElementById("invalidation").hidden = true;
                     document.getElementById("loginbtn").disabled = false;
+                    document.getElementById('InputUser').classList.remove("is-invalid");
+                    document.getElementById('InputPassword').classList.remove("is-invalid");
                     console.log("Can login");
                 } else {
                     document.getElementById("invalidation").hidden = false;
                     document.getElementById("loginbtn").disabled = true;
                     document.getElementById('InputUser').classList.add("is-invalid");
+                    document.getElementById('InputPassword').classList.add("is-invalid");
                     console.log("Bad password");
                 }
             });
         } else {
             document.getElementById("invalidation").hidden = false;
             document.getElementById("loginbtn").disabled = true;
+            document.getElementById('InputUser').classList.add("is-invalid");
+            document.getElementById('InputPassword').classList.add("is-invalid");
             console.log("Bad user");
         }
     };

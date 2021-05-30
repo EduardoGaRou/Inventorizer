@@ -56,6 +56,11 @@ label {
 	background-color: #264653;
 }
 
+.btn-primary:focus {
+	border-color: #264653;
+	background-color: #264653;
+}
+
 .btn-primary:disabled {
 	border-color: #2A9D8F;
 	background-color: #2A9D8F;
@@ -64,4 +69,19 @@ label {
 .btn-primary:disabled:hover {
 	border-color: #264653;
 	background-color: #264653;
+}
+
+.btn-secondary {
+	border-color: #8783D1;
+	background-color: #8783D1;
+}
+
+.btn-secondary:hover {
+	border-color: rgba(31, 3, 34, 1);
+	background-color: rgba(31, 3, 34, 1);
+}
+
+.btn-secondary:focus {
+	border-color: rgba(31, 3, 34, 1);
+	background-color: rgba(31, 3, 34, 1);
 }

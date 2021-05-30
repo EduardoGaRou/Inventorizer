@@ -14,23 +14,23 @@
 </head>
 
 <body>
-	<div class="container mt-4 mb-4 rounded">
+	<div class="container mt-4 mb-4">
 		<!--Header-->
 		<div class="row justify-content-center mb-0">
-			<div class="col-md-8 mb-0 p-4 text-center signupForm rounded-top">
+			<div class="col-md-6 mb-0 p-4 text-center signupForm rounded-top">
 				<!--Icon-->
 				<img height="200" width="200" src="../resources/css/box.png">
 			</div>
 		</div>
 		<div class="row justify-content-center mb-0">
 			<!--Title-->
-			<div class="col-md-8 mb-0 p-4 text-center signupForm header">
+			<div class="col-md-6 mb-0 p-4 text-center signupForm header">
 				<h1>Inventorizer Web App</h1>
 			</div>
 		</div>
 		<div class="row justify-content-center mb-0">
 			<!--User entry-->
-			<div class="col-md-4 signupForm mt-0 p-4">
+			<div class="col-md-3 signupForm mt-0 p-4">
 				<label for="SignUser" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
 					<i class="fas fa-user"></i>
 				</label>
@@ -40,8 +40,9 @@
 				<p id="invalidUser" class="h5 invalid-feedback mt-3" hidden>This user already exists</p>
 			</div>
 			<!--Display name entry-->
-			<div class="col-md-4 signupForm mt-0 p-4">
-				<label for="SignDisplay" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+			<div class="col-md-3 signupForm mt-0 p-4">
+				<label for="SignDisplay"
+					class="d-flex justify-content-center align-items-center rounded float-left mr-3">
 					<i class="fas fa-id-card"></i>
 				</label>
 				<p class="h5">Enter display name:</p>
@@ -52,7 +53,7 @@
 		</div>
 		<div class="row justify-content-center mb-0">
 			<!--Email entry-->
-			<div class="col-md-8 signupForm mt-0 p-4">
+			<div class="col-md-6 signupForm mt-0 p-4">
 				<label for="SignEmail" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
 					<i class="fas fa-at"></i>
 				</label>
@@ -64,20 +65,23 @@
 		</div>
 		<div class="row justify-content-center mb-0">
 			<!--Password entry-->
-			<div class="col-md-8 signupForm mt-0 p-4">
-				<label for="SignPassword" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+			<div class="col-md-6 signupForm mt-0 p-4">
+				<label for="SignPassword"
+					class="d-flex justify-content-center align-items-center rounded float-left mr-3">
 					<i class="fas fa-lock"></i>
 				</label>
 				<p class="h5">Enter password:</p>
 				<input type="password" class="form-control" id="SignPassword" placeholder="Ex. MyPassword456"
 					onkeyup="validatePass(this.value)" onkeydown="validateConfirm(this.value,SignConfirm.value)">
-				<p id="invalidPass" class="h5 invalid-feedback mt-3" hidden>Password must contain at least 1 number, upper case letter and lower case letter and be between 8 and 20 characters long.</p>
+				<p id="invalidPass" class="h5 invalid-feedback mt-3" hidden>Password must contain at least 1 number,
+					upper case letter and lower case letter and be between 8 and 20 characters long.</p>
 			</div>
 		</div>
 		<div class="row justify-content-center mb-0">
 			<!--Confirm entry-->
-			<div class="col-md-8 signupForm mt-0 p-4">
-				<label for="SignConfirm" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+			<div class="col-md-6 signupForm mt-0 p-4">
+				<label for="SignConfirm"
+					class="d-flex justify-content-center align-items-center rounded float-left mr-3">
 					<i class="fas fa-check-circle"></i>
 				</label>
 				<p class="h5">Confirm password:</p>
@@ -86,13 +90,16 @@
 				<p id="invalidConfirm" class="h5 invalid-feedback mt-3" hidden>Password does not match.</p>
 			</div>
 		</div>
-		<div class="row justify-content-center mt-0">
-			<div class="col-md-8 signupForm mt-0 p-4 text-right rounded-bottom">
-				<button id="signupbtn" class="btn btn-primary mb-3 mr-3" onclick="signup(SignUser.value,SignDisplay.value,SignEmail.value,SignPassword.value)" disabled>Create account</button>
+		<div class="row justify-content-center mt-0 mb-4">
+			<div class="col-md-6 signupForm mt-0 p-4 text-right rounded-bottom">
+				<button id="signupbtn" class="btn btn-primary mb-3 mr-3"
+					onclick="signup(SignUser.value,SignDisplay.value,SignEmail.value,SignPassword.value)"
+					disabled>Create account</button>
 				<a href="login.html"><button class="btn btn-primary mb-3 ">Go to Login</button></a>
 			</div>
 		</div>
 	</div>
+	.
 </body>
 
 </html>

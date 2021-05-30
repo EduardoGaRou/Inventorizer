@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<div class="container mt-4 mb-4 rounded">
+	<div class="container mt-4">
 		<!--Header-->
 		<div class="row justify-content-center mb-0">
 			<div class="col-md-6 mb-0 p-4 text-center loginForm rounded-top">
@@ -34,17 +34,18 @@
 					<i class="fas fa-user"></i>
 				</label>
 				<p class="h5">Username:</p>
-				<input type="text" class="form-control" id="InputUser" placeholder="Enter username" 
+				<input type="text" class="form-control" id="InputUser" placeholder="Enter username"
 					onkeyup="toggleErrorAndBtn(this.value,InputPassword.value)">
 			</div>
 		</div>
 		<div class="row justify-content-center mt-0 ">
 			<div class="col-md-6 loginForm mt-0 p-4">
-				<label for="InputPassword" class="d-flex justify-content-center align-items-center rounded float-left mr-3">
+				<label for="InputPassword"
+					class="d-flex justify-content-center align-items-center rounded float-left mr-3">
 					<i class="fas fa-lock"></i>
 				</label>
 				<p class="h5">Password:</p>
-				<input type="password" class="form-control" id="InputPassword" placeholder="Enter password" 
+				<input type="password" class="form-control" id="InputPassword" placeholder="Enter password"
 					onkeyup="toggleErrorAndBtn(InputUser.value,this.value)">
 				<p id="invalidation" class="h5 invalid-feedback mt-3" hidden>Entered user or password is incorrect!</p>
 			</div>

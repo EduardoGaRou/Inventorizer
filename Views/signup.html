@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Inventorizer Web App</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	<link rel="icon" type="image/png" href="../resources/css/box.png" />
 	<link rel="stylesheet" type="text/css" href="../resources/css/signupStyles.css">
@@ -69,8 +69,8 @@
 					<i class="fas fa-lock"></i>
 				</label>
 				<p class="h5">Enter password:</p>
-				<input type="text" class="form-control" id="SignPassword" placeholder="Ex. MyPassword456"
-					onkeyup="validatePass(this.value)">
+				<input type="password" class="form-control" id="SignPassword" placeholder="Ex. MyPassword456"
+					onkeyup="validatePass(this.value)" onkeydown="validateConfirm(this.value,SignConfirm.value)">
 				<p id="invalidPass" class="h5 invalid-feedback mt-3" hidden>Password must contain at least 1 number, upper case letter and lower case letter and be between 8 and 20 characters long.</p>
 			</div>
 		</div>
@@ -81,8 +81,8 @@
 					<i class="fas fa-check-circle"></i>
 				</label>
 				<p class="h5">Confirm password:</p>
-				<input type="text" class="form-control" id="SignConfirm" placeholder="Ex. MyPassword456"
-					onkeyup="validatePass(this.value)" onkeydown="validateConfirm(this.value,SignConfirm.value)">
+				<input type="password" class="form-control" id="SignConfirm" placeholder="Ex. MyPassword456"
+					onkeyup="validateConfirm(SignPassword.value,this.value)">
 				<p id="invalidConfirm" class="h5 invalid-feedback mt-3" hidden>Password does not match.</p>
 			</div>
 		</div>

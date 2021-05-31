@@ -56,3 +56,7 @@ function cipher(str){
 
     return revPass;
 }
+
+function login(usr,pass){
+    window.location = "./../Controllers/authenticate.php?username="+usr+"&pwd="+pass;
+}

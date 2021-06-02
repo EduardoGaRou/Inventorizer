@@ -109,12 +109,13 @@ function cipher(str){
 	var auxstr = str.repeat(2);
 	//Diffuse string
 	var adder = true;
+	var diffused = "";
 	for(let i=0; i<auxstr.length ; i+=1){
-		auxstr.charAt(i) = (adder) ? (auxstr.charAt(i) + i) : (auxstr.charAt(i) - i);
+		diffused += (adder) ? String.fromCharCode(auxstr.charCodeAt(i) + i) : String.fromCharCode(auxstr.charCodeAt(i) - i);
 		adder = !adder;
 	}
 	//Reverse string
-	var splitString = auxstr.split("");
+	var splitString = diffused.split("");
     var reverseArray = splitString.reverse();
     var revPass = reverseArray.join("");
 
@@ -122,5 +123,5 @@ function cipher(str){
 }
 
 function signup(usr,disp,email,pass){
-	window.location = "./../Controllers/createUser.php?username="+usr+"&displayname="+disp+"&email="+email+"&password="+pass;
+	window.location = "./../Controllers/createUser.php?username="+usr+"&displayname="+disp+"&email="+email+"&password="+cipher(pass);
 }

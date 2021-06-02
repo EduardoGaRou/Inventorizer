@@ -14,7 +14,7 @@ function toggleErrorAndBtn(usr,pass) {
             var obj = JSON.parse(this.responseText);
             console.log(obj);
             obj.forEach((data) => {
-                if(data.password === pass) {
+                if(data.password === cipher(pass)) {
                     document.getElementById("invalidation").hidden = true;
                     document.getElementById("loginbtn").disabled = false;
                     document.getElementById('InputUser').classList.remove("is-invalid");
@@ -45,12 +45,13 @@ function cipher(str){
     var auxstr = str.repeat(2);
     //Diffuse string
     var adder = true;
+    var diffused = "";
     for(let i=0; i<auxstr.length ; i+=1){
-        auxstr.charAt(i) = (adder) ? (auxstr.charAt(i) + i) : (auxstr.charAt(i) - i);
+        diffused += (adder) ? String.fromCharCode(auxstr.charCodeAt(i) + i) : String.fromCharCode(auxstr.charCodeAt(i) - i);
         adder = !adder;
     }
     //Reverse string
-    var splitString = auxstr.split("");
+    var splitString = diffused.split("");
     var reverseArray = splitString.reverse();
     var revPass = reverseArray.join("");
 
@@ -58,5 +59,5 @@ function cipher(str){
 }
 
 function login(usr,pass){
-    window.location = "./../Controllers/authenticate.php?username="+usr+"&pwd="+pass;
+    window.location = "./../Controllers/authenticate.php?username="+usr+"&pwd="+cipher(pass);
 }

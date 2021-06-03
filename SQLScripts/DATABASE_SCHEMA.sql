@@ -6,7 +6,7 @@ CREATE TABLE USERS(
 	id INT PRIMARY KEY,
 	username VARCHAR(255) NOT NULL,
 	email VARCHAR(255) UNIQUE NOT NULL,
-	displayname BOOL,
+	displayname VARCHAR(255),
 	password VARCHAR(255) NOT NULL,
 	deleted BOOL
 );

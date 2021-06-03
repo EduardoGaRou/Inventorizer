@@ -50,7 +50,7 @@ class Route
             }
 
             // Add 'find string start' automatically
-            $route['expression'] = '^/Inventorizer_v2'.$route['expression'];
+            $route['expression'] = '^/Inventorizer'.$route['expression'];
 
             // Add 'find string end' automatically
             $route['expression'] = $route['expression'].'$';

@@ -36,7 +36,7 @@ function toggleErrorAndBtn(usr,pass) {
             console.log("Bad user");
         }
     };
-    xhttp.open("GET", "./../Controllers/readUser.php?username="+usr, true);
+    xhttp.open("GET", "./Controllers/readUser.php?username="+usr, true);
     xhttp.send();
 }
 
@@ -59,5 +59,5 @@ function cipher(str){
 }
 
 function login(usr,pass){
-    window.location = "./../Controllers/authenticate.php?username="+usr+"&pwd="+cipher(pass);
+    window.location = "./Controllers/authenticate.php?username="+usr+"&pwd="+cipher(pass);
 }

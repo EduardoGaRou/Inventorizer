@@ -22,7 +22,7 @@ if(isset($_GET['username']) && isset($_GET['displayname']) && isset($_GET['email
 	$data['password'] = $_GET['password'];
 }
 else {
-	echo "<script>window.location='../Views/signup.html'</script>";
+	echo "<script>window.location='/Inventorizer/signup'</script>";
 }
 
 //$data = json_decode();
@@ -44,7 +44,7 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "The requested user was created! :^)"));
 		//Navigate to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer_v2/registered'</script>";
+		echo "<script>window.location='/Inventorizer/registered'</script>";
 	}
 	else {
 		// response 500 - Internal Server Error
@@ -52,7 +52,7 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "An error occurred with the service. :^("));
 		//Navigate back to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer_v2/signup'</script>";
+		echo "<script>window.location='/Inventorizer/signup'</script>";
 	}
 }
 else {
@@ -61,6 +61,6 @@ else {
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
 	//Navigate back to 'registered.html' screen
-	echo "<script>window.location='/Inventorizer_v2/signup'</script>";
+	echo "<script>window.location='/Inventorizer/signup'</script>";
 }
 ?>

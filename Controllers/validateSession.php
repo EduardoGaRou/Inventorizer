@@ -13,7 +13,7 @@ if(isset($_SESSION['lastAccess']) && isset($_SESSION['userid'])){
 	if($elapsed >= 300) {
 		session_unset();
 		session_destroy();
-		echo "<script>window.location = 'loggedout.html'</script>";
+		echo "<script>window.location = '/Inventorizer/logout'</script>";
 	}
 	//Grants access if session timestamp is still valid
 	else {
@@ -24,7 +24,7 @@ if(isset($_SESSION['lastAccess']) && isset($_SESSION['userid'])){
 }
 //Handle forced entry to home, redirect to login.html
 else {
-	echo "<script>window.location = '/Inventorizer_v2/'</script>";
+	echo "<script>window.location = '/Inventorizer/'</script>";
 }
 
 ?>

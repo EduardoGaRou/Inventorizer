@@ -27,7 +27,7 @@ function validateUser(usr){
             validateAll();
         }
     };
-    xhttp.open("GET", "./../Controllers/readUser.php?username="+usr, true);
+    xhttp.open("GET", "./Controllers/readUser.php?username="+usr, true);
     xhttp.send();
 }
 
@@ -123,5 +123,5 @@ function cipher(str){
 }
 
 function signup(usr,disp,email,pass){
-	window.location = "./../Controllers/createUser.php?username="+usr+"&displayname="+disp+"&email="+email+"&password="+cipher(pass);
+	window.location = "./Controllers/createUser.php?username="+usr+"&displayname="+disp+"&email="+email+"&password="+cipher(pass);
 }

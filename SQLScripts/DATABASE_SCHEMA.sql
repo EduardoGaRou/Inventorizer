@@ -1,0 +1,51 @@
+DROP DATABASE IF EXISTS DAW; 
+CREATE DATABASE DAW;
+USE DAW;
+
+CREATE TABLE USERS(
+	id INT PRIMARY KEY,
+	username VARCHAR(255) NOT NULL,
+	email VARCHAR(255) UNIQUE NOT NULL,
+	displayname BOOL,
+	password VARCHAR(255) NOT NULL,
+	deleted BOOL
+);
+CREATE TABLE STASHES(
+	id INT PRIMARY KEY,
+	name VARCHAR(255),
+	location VARCHAR(255),
+	deleted BOOL
+);
+
+
+CREATE TABLE CATEGORIES(
+	id INT,
+	name VARCHAR(255),
+	stash INT,
+	color VARCHAR(255),
+	deleted BOOL,
+	FOREIGN KEY (stash) REFERENCES STASHES(id)
+);
+
+
+CREATE TABLE ITEMS(
+	id INT PRIMARY KEY,
+	imageid INT,
+	name VARCHAR(255),
+	stash INT,
+	category INT,
+	description LONGTEXT,
+	status INT,
+	deleted INT,
+	FOREIGN KEY (stash) REFERENCES STASHES(id),
+	FOREIGN KEY (category) REFERENCES CATEGORIES(id)
+);
+
+CREATE TABLE INVENTORY(
+	itemid INT,
+	owner INT,
+	quantity INT,
+	FOREIGN KEY (itemid) REFERENCES ITEMS(id),
+	FOREIGN KEY	(owner) REFERENCES USERS(id),
+	PRIMARY KEY (itemid, owner)
+);

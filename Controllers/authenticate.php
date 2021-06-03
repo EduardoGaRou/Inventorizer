@@ -16,26 +16,26 @@ if(isset($_GET['username']) && isset($_GET['pwd'])){
 				session_start();
 				$_SESSION['userid'] = $read_req[0]['displayname'];
 				$_SESSION['lastAccess'] = date("Y-n-j H:i:s");
-				echo "<script>window.location = './../Views/home.php'</script>";
+				echo "<script>window.location = '/Inventorizer_v2/home'</script>";
 			}
 			//Incorrect passwords are redirected to login (only for forced entry)
 			else {
-				echo "<script>window.location = './../Views/login.html'</script>";
+				echo "<script>window.location = '/Inventorizer_v2/login'</script>";
 			}
 		}
 		//There was no user found
 		else {
-			echo "<script>window.location = './../Views/login.html'</script>";
+			echo "<script>window.location = '/Inventorizer_v2/login'</script>";
 		}
 	}
 	//Only the logged error message is retrieved in case a forced entry with wrong params is done
 	else {
-		echo "<script>window.location = './../Views/login.html'</script>";
+		echo "<script>window.location = '/Inventorizer_v2/login'</script>";
 	}
 }
 //No parameters means an entry through URL was forced
 else {
-	echo "<script>window.location = './../Views/login.html'</script>";
+	echo "<script>window.location = '/Inventorizer_v2/login'</script>";
 }
 
 

@@ -24,7 +24,7 @@ if(isset($_SESSION['lastAccess']) && isset($_SESSION['userid'])){
 }
 //Handle forced entry to home, redirect to login.html
 else {
-	echo "<script>window.location = 'login.html'</script>";
+	echo "<script>window.location = '/Inventorizer_v2/'</script>";
 }
 
 ?>

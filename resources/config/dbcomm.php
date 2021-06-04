@@ -1,6 +1,8 @@
 <?php
-class Dbcomm {
 
+
+class Dbcomm {
+	
 	//database credentials
 	private $db_host = "localhost";
 	private $db_name = "inventorizerdaw";
@@ -26,4 +28,3 @@ class Dbcomm {
 	}
 
 }
-?>

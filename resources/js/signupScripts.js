@@ -8,6 +8,7 @@ function validateUser(usr){
 	var xhttp;
     if (usr.length == 0) {
         document.getElementById("invalidUser").hidden = true;
+        document.getElementById('SignUser').classList.remove("is-invalid");
         userValid = false;
         validateAll();
         return;
@@ -16,10 +17,12 @@ function validateUser(usr){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && (this.status == 200 || this.status == 204)) {
             document.getElementById("invalidUser").hidden = false;
+            document.getElementById('SignUser').classList.add("is-invalid");
             userValid = false;
             validateAll();
         } else {
             document.getElementById("invalidUser").hidden = true;
+            document.getElementById('SignUser').classList.remove("is-invalid");
             userValid = true;
             validateAll();
         }
@@ -31,10 +34,12 @@ function validateUser(usr){
 function validateDisplay(name){
 	if(name == "") {
 		document.getElementById("invalidDisplay").hidden = false;
+		document.getElementById('SignDisplay').classList.add("is-invalid");
 		displayValid = false;
 		validateAll();
 	} else {
 		document.getElementById("invalidDisplay").hidden = true;
+		document.getElementById('SignDisplay').classList.remove("is-invalid");
 		displayValid = true;
 		validateAll();
 	}
@@ -44,10 +49,12 @@ function validateEmail(mail){
 	var regexE = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 	if(regexE.test(mail)){
 		document.getElementById("invalidEmail").hidden = true;
+		document.getElementById('SignEmail').classList.remove("is-invalid");
 		emailValid = true;
 		validateAll();
 	} else {
 		document.getElementById("invalidEmail").hidden = false;
+		document.getElementById('SignEmail').classList.add("is-invalid");
 		emailValid = false;
 		validateAll();
 	}
@@ -64,10 +71,12 @@ function validatePass(pass){
 	}
 	if((pass.length > 7) && hasDigit && hasLower && hasUpper && (pass.length < 21)){
 		document.getElementById("invalidPass").hidden = true;
+		document.getElementById('SignPassword').classList.remove("is-invalid");
 		passValid = true;
 		validateAll();
 	} else {
 		document.getElementById("invalidPass").hidden = false;
+		document.getElementById('SignPassword').classList.add("is-invalid");
 		passValid = false;
 		validateAll();
 	}
@@ -76,10 +85,12 @@ function validatePass(pass){
 function validateConfirm(pass,conf){
 	if(pass === conf) {
 		document.getElementById("invalidConfirm").hidden = true;
+		document.getElementById('SignConfirm').classList.remove("is-invalid");
 		confirmValid = true;
 		validateAll();
 	} else {
 		document.getElementById("invalidConfirm").hidden = false;
+		document.getElementById('SignConfirm').classList.add("is-invalid");
 		confirmValid = false;
 		validateAll();
 	}
@@ -110,6 +121,6 @@ function cipher(str){
     return revPass;
 }
 
-function signup(){
-
+function signup(usr,disp,email,pass){
+	window.location = "./../Controllers/createUser.php?username="+usr+"&displayname="+disp+"&email="+email+"&password="+pass;
 }

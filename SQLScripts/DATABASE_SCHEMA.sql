@@ -14,7 +14,9 @@ CREATE TABLE STASHES(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(255),
 	location VARCHAR(255),
-	deleted BOOL
+	user INT,
+	deleted BOOL,
+	FOREIGN KEY (user) REFERENCES USERS(id)
 );
 
 
@@ -32,12 +34,10 @@ CREATE TABLE ITEMS(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	imageid INT,
 	name VARCHAR(255),
-	stash INT,
 	category INT,
 	description LONGTEXT,
 	status INT,
 	deleted BOOL,
-	FOREIGN KEY (stash) REFERENCES STASHES(id),
 	FOREIGN KEY (category) REFERENCES CATEGORIES(id)
 );
 

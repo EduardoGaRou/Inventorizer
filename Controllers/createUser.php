@@ -1,8 +1,8 @@
 <?php
 // headers
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
+//header("Content-Type: application/json; charset=UTF-8");
+//header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
@@ -16,26 +16,26 @@ $db = $database->getConnection();
 $user = new User($db);
 
 if(isset($_GET['username']) && isset($_GET['displayname']) && isset($_GET['email']) && isset($_GET['password'])) {
-	$data->username = $_GET['username'];
-	$data->displayname = $_GET['displayname'];
-	$data->email = $_GET['email'];
-	$data->password = $_GET['password'];
+	$data['username'] = $_GET['username'];
+	$data['displayname'] = $_GET['displayname'];
+	$data['email'] = $_GET['email'];
+	$data['password'] = $_GET['password'];
 }
 else {
-	echo "<script>window.location='../Views/signup.html'</script>";
+	echo "<script>window.location='/Inventorizer/signup'</script>";
 }
 
-//$data = json_decode(file_get_contents("php://input"));
+//$data = json_decode();
 
 if(
-	!empty($data->username) && !empty($data->password) &&
-	!empty($data->displayname) && !empty($data->email)
+	!empty($data['username']) && !empty($data['password']) &&
+	!empty($data['displayname']) && !empty($data['email'])
 ){
-	$user->id = $data->id;
-	$user->username = $data->username;
-	$user->email = $data->email;
-	$user->displayname = $data->displayname;
-	$user->password = $data->password;
+	//$user->id = $data->id;
+	$user->username = $data['username'];
+	$user->email = $data['email'];
+	$user->displayname = $data['displayname'];
+	$user->password = $data['password'];
 	$user->deleted = 0;
 
 	if($user->create()) {
@@ -44,7 +44,7 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "The requested user was created! :^)"));
 		//Navigate to 'registered.html' screen
-		echo "<script>window.location='../Views/registered.html'</script>";
+		echo "<script>window.location='/Inventorizer/registered'</script>";
 	}
 	else {
 		// response 500 - Internal Server Error
@@ -52,7 +52,7 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "An error occurred with the service. :^("));
 		//Navigate back to 'registered.html' screen
-		echo "<script>window.location='../Views/signup.html'</script>";
+		echo "<script>window.location='/Inventorizer/signup'</script>";
 	}
 }
 else {
@@ -61,6 +61,6 @@ else {
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
 	//Navigate back to 'registered.html' screen
-	echo "<script>window.location='../Views/signup.html'</script>";
+	echo "<script>window.location='/Inventorizer/signup'</script>";
 }
 ?>

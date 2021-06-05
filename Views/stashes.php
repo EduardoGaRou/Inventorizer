@@ -106,6 +106,51 @@
                     </thead>
                     <tbody class="bg-light">
                         <span id="tableResult"></span>
+                        <?php
+                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Inventorizer/Controllers/searchStash.php?'),true);
+                          
+                         foreach($allstashes as $currentItem){
+                            echo "<td class='align-middle'>$currentItem[name]</td>
+                            <td class='align-middle'>$currentItem[location]</td>
+                            <td class='align-middle'>27</td>
+                            <td class='align-middle'>350</td>
+                            <td class='align-middle'>
+                                <form action=' method='POST'>
+                                    <button type='submit' class='btn btn-primary text-nowrap' style='min-width: 120px;'>
+                                        <span class='material-icons float-right ml-1'>
+                                            category
+                                        </span>
+                                        Categories
+                                    </button>
+                                </form>
+                            </td>
+                            <td class='align-middle'>
+                                <form action=' method='POST'>
+                                    <button type='submit' class='btn btn-primary text-nowrap' style='min-width: 120px;'>
+                                        <span class='material-icons float-right ml-1'>
+                                            view_in_ar
+                                        </span>
+                                        Items
+                                    </button>
+                                </form>
+                            </td>
+                            <td class='align-middle'>
+                                <form action=' method='POST'>
+                                    <button type='button' data-toggle='modal' data-target='#modifyStash'
+                                        class='btn btn-primary text-nowrap' style='min-width: 120px;'>
+                                        <span class='material-icons float-right ml-1'>
+                                            edit
+                                        </span>
+                                        Modificar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>";
+                         }
+
+                         //echo $allstashes = file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name=xshitty');
+                        ?>
+
                         <!--?php
 
                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='.$var1), true);

@@ -123,7 +123,7 @@ class Stash
         $statement->execute();
 
         $item = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+        
         return $item;
 
         /*$this->deleted = $item['deleted'];

@@ -19,7 +19,7 @@ $item = $stash->search($_GET['name']);
 //var_dump($user);
 
 if(!empty($item)){
-
+    
     $display = array();
 
     foreach ($item as $unit) {

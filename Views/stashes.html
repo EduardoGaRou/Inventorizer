@@ -75,7 +75,7 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search">
+                                <input class="form-control" type="text" placeholder="Search stashes..." id="InputStash" onke>
                             </div>
                             <div class="col">
                                 <a type="button" data-toggle="modal" data-target="#newStash"
@@ -105,16 +105,20 @@
                         </tr>
                     </thead>
                     <tbody class="bg-light">
+                        <span id="tableResult"></span>
+                        <!--?php
 
-                        <tr>
+                        $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='.$var1), true);
+
+                        ?-->
+                        <!--tr>
                             <td class="align-middle">HQ</td>
                             <td class="align-middle">Mexico, Queretaro</td>
                             <td class="align-middle">27</td>
                             <td class="align-middle">350</td>
                             <td class="align-middle">
                                 <form action="" method="POST">
-                                    <button value="HOLA" type="submit" class="btn btn-primary text-nowrap"
-                                        style="min-width: 120px;">
+                                    <button type="submit" class="btn btn-primary text-nowrap" style="min-width: 120px;">
                                         <span class="material-icons float-right ml-1">
                                             category
                                         </span>
@@ -134,9 +138,8 @@
                             </td>
                             <td class="align-middle">
                                 <form action="" method="POST">
-                                    <button onclick="readStash('ESTEESELID87866765')" type="button" data-toggle="modal"
-                                        data-target="#modifyStash" class="btn btn-primary text-nowrap"
-                                        style="min-width: 120px;">
+                                    <button type="button" data-toggle="modal" data-target="#modifyStash"
+                                        class="btn btn-primary text-nowrap" style="min-width: 120px;">
                                         <span class="material-icons float-right ml-1">
                                             edit
                                         </span>
@@ -144,7 +147,7 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
+                        </tr-->
                     </tbody>
                 </table>
             </div>
@@ -236,11 +239,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="updateStash.php">
-                        <input type="hidden" value="Equis cosa" name="" id="" />
+                    <form>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Email address</label>
-                            <input value="" type="email" class="form-control" id="name" placeholder="name@example.com">
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Example select</label>
@@ -287,12 +290,7 @@
     </div>
 
 
-    <script>
-        function readStash(PK) {
 
-            document.getElementById('name').value = "HQ"
-        }
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

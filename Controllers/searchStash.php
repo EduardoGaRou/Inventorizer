@@ -14,7 +14,7 @@ $stash = new Stash($db);
 
 $stash->name = isset($_GET['name']) ? $_GET['name'] : die();
 
-$item = $stash->search($_GET['name']);
+$item = $stash->search($_GET['name'],$_SESSION['userid']);
 
 //var_dump($user);
 

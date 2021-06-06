@@ -75,7 +75,7 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search stashes..." id="InputStash" onke>
+                                <input class="form-control" type="text" placeholder="Search stashes..." id="InputStash" onkeyup="printStashes(this.value)">
                             </div>
                             <div class="col">
                                 <a type="button" data-toggle="modal" data-target="#newStash"
@@ -105,9 +105,9 @@
                         </tr>
                     </thead>
                     <tbody class="bg-light">
-                        <span id="tableResult"></span>
-                        <?php
-                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Inventorizer/Controllers/searchStash.php?'),true);
+                        <div id="tableResult" onload="printStashes(InputStash.value)">
+                        <!--?php
+                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?'),true);
                           
                          foreach($allstashes as $currentItem){
                             echo "<td class='align-middle'>$currentItem[name]</td>
@@ -149,8 +149,8 @@
                          }
 
                          //echo $allstashes = file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name=xshitty');
-                        ?>
-
+                        ?-->
+                        </div>
                         <!--?php
 
                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='.$var1), true);
@@ -220,33 +220,14 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <label for="InputNewStashName">Stash name:</label>
+                            <input type="text" class="form-control" id="InputNewStashName"
+                                placeholder="Ex. MyStash">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <label for="InputNewStashLocation">Stash location:</label>
+                            <input type="text" class="form-control" id="InputNewStashLocation"
+                                placeholder="Ex. Mexico, D.F.">
                         </div>
                     </form>
                 </div>
@@ -257,7 +238,8 @@
                             close
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary"
+                        onclick="sendToCreate(InputNewStashName.value,InputNewStashLocation.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
                             save
@@ -286,44 +268,30 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <label for="InputChangeStashName">Stash name:</label>
+                            <input type="text" class="form-control" id="InputChangeStashName">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <label for="InputChangeStashLocation">Stash location:</label>
+                            <input type="text" class="form-control" id="InputChangeStashLocation">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="sendToDelete()">
+                        Delete
+                        <span class="material-icons float-right ml-1">
+                            delete
+                        </span>
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Close
                         <span class="material-icons float-right ml-1">
                             close
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" 
+                        onclick="sendToUpdate(InputChangeStashName.value,InputChangeStashLocation.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
                             save

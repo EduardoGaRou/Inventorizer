@@ -15,7 +15,8 @@ $db = $database->getConnection();
 
 $stash = new Stash($db);
 
-if(isset($_GET['name']) && isset($_GET['location'])) {
+if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['location'])) {
+	$data['id'] = $_GET['id'];
 	$data['name'] = $_GET['name'];
 	$data['location'] = $_GET['location'];
 }
@@ -25,10 +26,11 @@ else {
 
 //$data = json_decode(file_get_contents("php://input"));
 
-if(!empty($data->id)) {
+if(!empty($data['id'])) {
 	
-	$stash->name = $data->name;
-	$stash->location = $data->location;
+	$stash->id = $data['id'];
+	$stash->name = $data['name'];
+	$stash->location = $data['location'];
 
 	if($user->update()) {
 		// response 202 - Accepted

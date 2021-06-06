@@ -17,7 +17,7 @@ Route::add('/signup',function(){
 });
 
 // Registered user (after signed up)
-ROute::add('/registered',function(){
+Route::add('/registered',function(){
 	include('./Views/registered.html');
 });
 
@@ -49,6 +49,21 @@ Route::add('/categories',function(){
 Route::add('/stashes',function(){ 
     include_once("./Controllers/validateSession.php");
     include ('./Views/stashes.html');
+});
+
+//Categories page (stash filter)
+Route::add('/fromStash/([0-9]*)/categories',function($var1){
+    include_once("./Controllers/validateSession.php");
+});
+
+//Items page (stash filter)
+Route::add('/fromStash/([0-9]*)/items',function($var1){
+    include_once("./Controllers/validateSession.php");
+});
+
+//Items page (category filter)
+Route::add('/fromCategory/([0-9]*)/items',function($var1){
+    include_once("./Controllers/validateSession.php");
 });
 
 //echo "indexecho";

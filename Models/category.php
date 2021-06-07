@@ -1,17 +1,16 @@
 <?php
 
-class User
+class Category
 {
     // database comm line and table name
     public $comm;
-    public $table_name = "users";
+    public $table_name = "categories";
 
     // table fields
     public $id;
-    public $username;
-    public $email;
-    public $displayname;
-    public $password;
+    public $name;
+    public $stash;
+    public $color;
     public $deleted;
 
     public function __construct($db)
@@ -22,20 +21,17 @@ class User
     function create(){
       
         // insertion query
-        $query = "INSERT INTO " . $this->table_name . " SET
-            username=:username, email=:email, displayname=:displayname, password=:password, deleted=0";
+        $query = "INSERT INTO " . $this->table_name . " SET name=:name, stash=:stash, color=:color, deleted=0";
       
         $statement = $this->comm->prepare($query);
       
-        $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->displayname=htmlspecialchars(strip_tags($this->displayname));
-        $this->password=htmlspecialchars(strip_tags($this->password));
+        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->stash=htmlspecialchars(strip_tags($this->stash));
+        $this->color=htmlspecialchars(strip_tags($this->color));
       
-        $statement->bindParam(":username", $this->username);
-        $statement->bindParam(":email", $this->email);
-        $statement->bindParam(":displayname", $this->displayname);
-        $statement->bindParam(":password", $this->password);
+        $statement->bindParam(":name", $this->name);
+        $statement->bindParam(":stash", $this->stash);
+        $statement->bindParam(":color", $this->color);
         
         if($statement->execute()) return true;
       
@@ -46,12 +42,12 @@ class User
     function read(){
       
         // single-reading query
-        $query = "SELECT id, username, email, displayname, password, deleted
-            FROM " . $this->table_name . " WHERE username = :username LIMIT 0,1";
+        $query = "SELECT name, stash, color, deleted
+            FROM " . $this->table_name . " WHERE name = :name LIMIT 0,1";
       
         $statement = $this->comm->prepare($query);
         
-        $statement->bindParam(":username", $this->username);
+        $statement->bindParam(":name", $this->name);
       
         $statement->execute();
 
@@ -59,10 +55,9 @@ class User
 
         if($item) {
             $this->id = $item['id'];
-            $this->username = $item['username'];
-            $this->email = $item['email'];
-            $this->displayname = $item['displayname'];
-            $this->password = $item['password'];
+            $this->name = $item['name'];
+            $this->stash = $item['stash'];
+            $this->color = $item['color'];
             $this->deleted = $item['deleted'];
         }
 
@@ -74,25 +69,19 @@ class User
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    username = :username,
-                    email = :email,
-                    displayname = :displayname,
-                    password = :password
+                    name = :name,
+                    color = :color
                 WHERE
                     id = :id";
       
         $statement = $this->comm->prepare($query);
       
-        $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->displayname=htmlspecialchars(strip_tags($this->displayname));
-        $this->password=htmlspecialchars(strip_tags($this->password));
+        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->color=htmlspecialchars(strip_tags($this->color));
         $this->id=htmlspecialchars(strip_tags($this->id));
       
-        $statement->bindParam(":username", $this->username);
-        $statement->bindParam(":email", $this->email);
-        $statement->bindParam(":displayname", $this->displayname);
-        $statement->bindParam(":password", $this->password);
+        $statement->bindParam(":name", $this->name);
+        $statement->bindParam(":color", $this->color);
         $statement->bindParam(":id", $this->id);
       
         if($statement->execute()) return true;
@@ -121,10 +110,13 @@ class User
         return false;
     }
 
-    function search(){
+    function search($param,$usr){
 
-        $query = "SELECT  username, email, displayname
-            FROM " . $this->table_name . " WHERE username LIKE '%" . $this->username . "%' AND deleted = 0";
+        if(empty($param))
+            $query = "SELECT  * FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
+        else
+            $query = "SELECT  *
+                FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
 
         $statement = $this->comm->prepare($query);
 
@@ -160,65 +152,49 @@ class User
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $name
      */
-    public function setUsername($username)
+    public function setName($name)
     {
-        $this->username = $username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDisplayname()
-    {
-        return $this->displayname;
-    }
-
-    /**
-     * @param mixed $displayname
-     */
-    public function setDisplayname($displayname)
-    {
-        $this->displayname = $displayname;
+        $this->name = $name;
     }
     
     /**
      * @return mixed
      */
-    public function getPassword()
+    public function getStash()
     {
-        return $this->password;
+        return $this->stash;
     }
 
     /**
-     * @param mixed $password
+     * @param mixed $stash
      */
-    public function setPassword($password)
+    public function setStash($stash)
     {
-        $this->password = $password;
+        $this->stash = $stash;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param mixed $color
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
     }
 
     /**

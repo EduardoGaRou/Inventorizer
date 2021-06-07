@@ -1,17 +1,18 @@
 <?php
 
-class User
+class Item
 {
     // database comm line and table name
     public $comm;
-    public $table_name = "users";
+    public $table_name = "items";
 
     // table fields
     public $id;
-    public $username;
-    public $email;
-    public $displayname;
-    public $password;
+    public $imageid;
+    public $name;
+    public $category;
+    public $description;
+    public $status;
     public $deleted;
 
     public function __construct($db)
@@ -22,20 +23,22 @@ class User
     function create(){
       
         // insertion query
-        $query = "INSERT INTO " . $this->table_name . " SET
-            username=:username, email=:email, displayname=:displayname, password=:password, deleted=0";
+        $query = "INSERT INTO " . $this->table_name . " 
+            SET imageid=:imageid, name=:name, category=:category, description=:description, status=:status, deleted=0";
       
         $statement = $this->comm->prepare($query);
       
-        $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->displayname=htmlspecialchars(strip_tags($this->displayname));
-        $this->password=htmlspecialchars(strip_tags($this->password));
+        $this->imageid=htmlspecialchars(strip_tags($this->imageid));
+        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->category=htmlspecialchars(strip_tags($this->category));
+        $this->description=htmlspecialchars(strip_tags($this->description));
+        $this->status=htmlspecialchars(strip_tags($this->status));
       
-        $statement->bindParam(":username", $this->username);
-        $statement->bindParam(":email", $this->email);
-        $statement->bindParam(":displayname", $this->displayname);
-        $statement->bindParam(":password", $this->password);
+        $statement->bindParam(":imageid", $this->imageid);
+        $statement->bindParam(":name", $this->name);
+        $statement->bindParam(":category", $this->category);
+        $statement->bindParam(":description", $this->description);
+        $statement->bindParam(":status", $this->status);
         
         if($statement->execute()) return true;
       
@@ -46,12 +49,12 @@ class User
     function read(){
       
         // single-reading query
-        $query = "SELECT id, username, email, displayname, password, deleted
-            FROM " . $this->table_name . " WHERE username = :username LIMIT 0,1";
+        $query = "SELECT imageid, name, category, description, status, deleted
+            FROM " . $this->table_name . " WHERE name = :name LIMIT 0,1";
       
         $statement = $this->comm->prepare($query);
         
-        $statement->bindParam(":username", $this->username);
+        $statement->bindParam(":name", $this->name);
       
         $statement->execute();
 
@@ -59,10 +62,11 @@ class User
 
         if($item) {
             $this->id = $item['id'];
-            $this->username = $item['username'];
-            $this->email = $item['email'];
-            $this->displayname = $item['displayname'];
-            $this->password = $item['password'];
+            $this->imageid = $item['imageid'];
+            $this->name = $item['name'];
+            $this->category = $item['category'];
+            $this->description = $item['description'];
+            $this->status = $item['status'];
             $this->deleted = $item['deleted'];
         }
 
@@ -74,25 +78,25 @@ class User
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    username = :username,
-                    email = :email,
-                    displayname = :displayname,
-                    password = :password
+                    imageid = :imageid,
+                    name = :name,
+                    description = :description,
+                    status = :status
                 WHERE
                     id = :id";
       
         $statement = $this->comm->prepare($query);
       
-        $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->displayname=htmlspecialchars(strip_tags($this->displayname));
-        $this->password=htmlspecialchars(strip_tags($this->password));
+        $this->imageid=htmlspecialchars(strip_tags($this->imageid));
+        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->description=htmlspecialchars(strip_tags($this->description));
+        $this->status=htmlspecialchars(strip_tags($this->status));
         $this->id=htmlspecialchars(strip_tags($this->id));
       
-        $statement->bindParam(":username", $this->username);
-        $statement->bindParam(":email", $this->email);
-        $statement->bindParam(":displayname", $this->displayname);
-        $statement->bindParam(":password", $this->password);
+        $statement->bindParam(":imageid", $this->imageid);
+        $statement->bindParam(":name", $this->name);
+        $statement->bindParam(":description", $this->description);
+        $statement->bindParam(":status", $this->status);
         $statement->bindParam(":id", $this->id);
       
         if($statement->execute()) return true;
@@ -121,10 +125,13 @@ class User
         return false;
     }
 
-    function search(){
+    function search($param,$usr){
 
-        $query = "SELECT  username, email, displayname
-            FROM " . $this->table_name . " WHERE username LIKE '%" . $this->username . "%' AND deleted = 0";
+        if(empty($param))
+            $query = "SELECT  * FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
+        else
+            $query = "SELECT  *
+                FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
 
         $statement = $this->comm->prepare($query);
 
@@ -160,65 +167,81 @@ class User
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getIamgeid()
     {
-        return $this->username;
+        return $this->imageid;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $imageid
      */
-    public function setUsername($username)
+    public function setName($imageid)
     {
-        $this->username = $username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
+        $this->imageid = $imageid;
     }
 
     /**
      * @return mixed
      */
-    public function getDisplayname()
+    public function getName()
     {
-        return $this->displayname;
+        return $this->name;
     }
 
     /**
-     * @param mixed $displayname
+     * @param mixed $name
      */
-    public function setDisplayname($displayname)
+    public function setName($name)
     {
-        $this->displayname = $displayname;
+        $this->name = $name;
     }
     
     /**
      * @return mixed
      */
-    public function getPassword()
+    public function getCategory()
     {
-        return $this->password;
+        return $this->category;
     }
 
     /**
-     * @param mixed $password
+     * @param mixed $category
      */
-    public function setPassword($password)
+    public function setCategory($category)
     {
-        $this->password = $password;
+        $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     /**

@@ -104,7 +104,7 @@
                             <th scope="col">Modify</th>
                         </tr>
                     </thead>
-                    <tbody id="tableResult" class="bg-light" onload="printStashes(InputStash.value)">
+                    <tbody id="tableResult" class="bg-light" >
                         <!--div id="tableResult" onload="printStashes(InputStash.value)"-->
                         <!--?php
                          $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='),true);

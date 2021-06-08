@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Inventorizer Web App</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="./resources/css/box.png" />
     <link rel="stylesheet" type="text/css" href="./resources/css/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -21,8 +20,7 @@
         <a class="navbar-brand font-weight-bold text-center d-none d-lg-block" href="#">
             Inventorizer
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -48,7 +46,7 @@
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
-                        <?php echo $_SESSION['displayid'];?>
+                        <?php echo $_SESSION['displayid']; ?>
                     </a>
                 </li>
                 <li class="nav-item active">
@@ -78,8 +76,7 @@
                                 <input class="form-control" type="text" value="" placeholder="Search stashes..." id="InputStash" onkeyup="printStashes(this.value)">
                             </div>
                             <div class="col">
-                                <a type="button" data-toggle="modal" data-target="#newStash"
-                                    class="btn btn-secondary float-right">
+                                <a type="button" data-toggle="modal" data-target="#newStash" class="btn btn-secondary float-right">
                                     <span class="material-icons float-right ml-2">
                                         add_circle_outline
                                     </span>
@@ -224,13 +221,11 @@
                     <form>
                         <div class="form-group">
                             <label for="InputNewStashName">Stash name:</label>
-                            <input type="text" class="form-control" id="InputNewStashName" value=""
-                                placeholder="Ex. MyStash">
+                            <input type="text" class="form-control" id="InputNewStashName" value="" placeholder="Ex. MyStash">
                         </div>
                         <div class="form-group">
                             <label for="InputNewStashLocation">Stash location:</label>
-                            <input type="text" class="form-control" id="InputNewStashLocation" value=""
-                                placeholder="Ex. Mexico, D.F.">
+                            <input type="text" class="form-control" id="InputNewStashLocation" value="" placeholder="Ex. Mexico, D.F.">
                         </div>
                     </form>
                 </div>
@@ -241,8 +236,7 @@
                             close
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary"
-                        onclick="sendToCreate(InputNewStashName.value,InputNewStashLocation.value)">
+                    <button type="button" class="btn btn-primary" onclick="sendToCreate(InputNewStashName.value,InputNewStashLocation.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
                             save
@@ -293,8 +287,7 @@
                             close
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary" 
-                        onclick="sendToUpdate(InputChangeStashName.value,InputChangeStashLocation.value)">
+                    <button type="button" class="btn btn-primary" onclick="sendToUpdate(InputChangeStashName.value,InputChangeStashLocation.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
                             save
@@ -308,11 +301,9 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
 </body>
 

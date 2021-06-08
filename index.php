@@ -48,7 +48,7 @@ Route::add('/categories',function(){
 // Stashes page
 Route::add('/stashes',function(){ 
     include_once("./Controllers/validateSession.php");
-    include ('./Views/stashes.html');
+    include ('./Views/stashes.php');
 });
 
 //Categories page (stash filter)

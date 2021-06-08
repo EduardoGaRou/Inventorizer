@@ -26,7 +26,7 @@ else {
 
 if(!empty($data['id'])) {
 	
-	$stash->id = $data->id;
+	$stash->id = $data['id'];
 	/*$user->username = $data->username;
 	$user->email = $data->email;
 	$user->displayname = $data->displayname;

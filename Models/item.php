@@ -8,10 +8,10 @@ class Item
 
     // table fields
     public $id;
-    public $imageid;
     public $name;
     public $category;
     public $description;
+    public $quantity;
     public $status;
     public $deleted;
 
@@ -24,17 +24,17 @@ class Item
       
         // insertion query
         $query = "INSERT INTO " . $this->table_name . " 
-            SET imageid=:imageid, name=:name, category=:category, description=:description, status=:status, deleted=0";
+            SET name=:name, category=:category, description=:description, quantity=:quantity, status=:status, deleted=0";
       
         $statement = $this->comm->prepare($query);
       
-        $this->imageid=htmlspecialchars(strip_tags($this->imageid));
+        $this->imageid=htmlspecialchars(strip_tags($this->quantity));
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->category=htmlspecialchars(strip_tags($this->category));
         $this->description=htmlspecialchars(strip_tags($this->description));
         $this->status=htmlspecialchars(strip_tags($this->status));
       
-        $statement->bindParam(":imageid", $this->imageid);
+        $statement->bindParam(":quantity", $this->quantity);
         $statement->bindParam(":name", $this->name);
         $statement->bindParam(":category", $this->category);
         $statement->bindParam(":description", $this->description);
@@ -49,7 +49,7 @@ class Item
     function read(){
       
         // single-reading query
-        $query = "SELECT imageid, name, category, description, status, deleted
+        $query = "SELECT name, category, description, quantity, status, deleted
             FROM " . $this->table_name . " WHERE name = :name LIMIT 0,1";
       
         $statement = $this->comm->prepare($query);
@@ -62,10 +62,10 @@ class Item
 
         if($item) {
             $this->id = $item['id'];
-            $this->imageid = $item['imageid'];
             $this->name = $item['name'];
             $this->category = $item['category'];
             $this->description = $item['description'];
+            $this->quantity = $item['quantity'];
             $this->status = $item['status'];
             $this->deleted = $item['deleted'];
         }
@@ -78,22 +78,22 @@ class Item
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    imageid = :imageid,
                     name = :name,
                     description = :description,
+                    quantity = :quantity,
                     status = :status
                 WHERE
                     id = :id";
       
         $statement = $this->comm->prepare($query);
       
-        $this->imageid=htmlspecialchars(strip_tags($this->imageid));
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->description=htmlspecialchars(strip_tags($this->description));
+        $this->quantity=htmlspecialchars(strip_tags($this->quantity));
         $this->status=htmlspecialchars(strip_tags($this->status));
         $this->id=htmlspecialchars(strip_tags($this->id));
       
-        $statement->bindParam(":imageid", $this->imageid);
+        $statement->bindParam(":quantity", $this->quantity);
         $statement->bindParam(":name", $this->name);
         $statement->bindParam(":description", $this->description);
         $statement->bindParam(":status", $this->status);
@@ -167,22 +167,6 @@ class Item
     /**
      * @return mixed
      */
-    public function getIamgeid()
-    {
-        return $this->imageid;
-    }
-
-    /**
-     * @param mixed $imageid
-     */
-    public function setName($imageid)
-    {
-        $this->imageid = $imageid;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getName()
     {
         return $this->name;
@@ -226,6 +210,22 @@ class Item
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
     }
 
     /**

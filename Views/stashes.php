@@ -7,10 +7,10 @@
     <title>Inventorizer Web App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="../resources/css/box.png" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/global.css">
+    <link rel="icon" type="image/png" href="./resources/css/box.png" />
+    <link rel="stylesheet" type="text/css" href="./resources/css/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="../resources/js/loginScripts.js"></script>
+    <script type="text/javascript" src="./resources/js/stashScripts.js"></script>
 </head>
 
 <body>
@@ -48,7 +48,7 @@
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
-                        Account
+                        <?php echo $_SESSION['displayid'];?>
                     </a>
                 </li>
                 <li class="nav-item active">
@@ -75,7 +75,7 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search stashes..." id="InputStash" onkeyup="printStashes(this.value)">
+                                <input class="form-control" type="text" value="" placeholder="Search stashes..." id="InputStash" onkeyup="printStashes(this.value)">
                             </div>
                             <div class="col">
                                 <a type="button" data-toggle="modal" data-target="#newStash"
@@ -104,13 +104,14 @@
                             <th scope="col">Modify</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-light">
-                        <div id="tableResult" onload="printStashes(InputStash.value)">
+                    <tbody id="tableResult" class="bg-light" onload="printStashes(InputStash.value)">
+                        <!--div id="tableResult" onload="printStashes(InputStash.value)"-->
                         <!--?php
-                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?'),true);
-                          
+                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='),true);
+                        
+                        $dbstashes = "";
                          foreach($allstashes as $currentItem){
-                            echo "<td class='align-middle'>$currentItem[name]</td>
+                            $dbstashes .= "<tr><td class='align-middle'>$currentItem[name]</td>
                             <td class='align-middle'>$currentItem[location]</td>
                             <td class='align-middle'>27</td>
                             <td class='align-middle'>350</td>
@@ -146,11 +147,13 @@
                                 </form>
                             </td>
                         </tr>";
-                         }
+                        }
+
+                        echo $dbstashes;
 
                          //echo $allstashes = file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name=xshitty');
                         ?-->
-                        </div>
+                        <!--/div-->
                         <!--?php
 
                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='.$var1), true);
@@ -221,12 +224,12 @@
                     <form>
                         <div class="form-group">
                             <label for="InputNewStashName">Stash name:</label>
-                            <input type="text" class="form-control" id="InputNewStashName"
+                            <input type="text" class="form-control" id="InputNewStashName" value=""
                                 placeholder="Ex. MyStash">
                         </div>
                         <div class="form-group">
                             <label for="InputNewStashLocation">Stash location:</label>
-                            <input type="text" class="form-control" id="InputNewStashLocation"
+                            <input type="text" class="form-control" id="InputNewStashLocation" value=""
                                 placeholder="Ex. Mexico, D.F.">
                         </div>
                     </form>

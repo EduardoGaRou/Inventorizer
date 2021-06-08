@@ -113,9 +113,9 @@ class Stash
     function search($param,$usr){
 
         if(empty($param))
-            $query = "SELECT  name, location FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
+            $query = "SELECT  * FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
         else
-            $query = "SELECT  name, location
+            $query = "SELECT  *
                 FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
 
         $statement = $this->comm->prepare($query);

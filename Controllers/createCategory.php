@@ -8,42 +8,39 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // database and stash model
 include "../resources/config/dbcomm.php";
-include "../Models/stash.php";
+include "../Models/category.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$stash = new Stash($db);
+$category = new Category($db);
 
-if(isset($_GET['name']) && isset($_GET['location']) && isset($_SESSION['userid'])) {
+if(isset($_GET['name']) && isset($_GET['stash'])) {
 	$data['name'] = $_GET['name'];
-	$data['location'] = $_GET['location'];
-	$data['user'] = $_SESSION['userid'];
+	$data['stash'] = $_GET['stash'];
 }
 else {
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
 //$data = json_decode();
 
 if(
 	!empty($data['name']) &&
-	!empty($data['location']) &&
-	!empty($data['user'])
+	!empty($data['stash'])
 ){
 	//$user->id = $data->id;
-	$stash->name = $data['name'];
-	$stash->location = $data['location'];
-	$stash->user = $data['user'];
-	$stash->deleted = 0;
+	$category->name = $data['name'];
+	$category->stash = $data['stash'];
+	$category->deleted = 0;
 
-	if($user->create()) {
+	if($category->create()) {
 		// response 201 - Created
 		http_response_code(201);
 		// message for user
 		//echo json_encode(array("log" => "The requested user was created! :^)"));
 		//Navigate to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 	else {
 		// response 500 - Internal Server Error
@@ -51,7 +48,7 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "An error occurred with the service. :^("));
 		//Navigate back to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 }
 else {
@@ -60,6 +57,6 @@ else {
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
 	//Navigate back to 'registered.html' screen
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 ?>

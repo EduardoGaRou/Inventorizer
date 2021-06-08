@@ -10,7 +10,6 @@ class Category
     public $id;
     public $name;
     public $stash;
-    public $color;
     public $deleted;
 
     public function __construct($db)
@@ -21,17 +20,15 @@ class Category
     function create(){
       
         // insertion query
-        $query = "INSERT INTO " . $this->table_name . " SET name=:name, stash=:stash, color=:color, deleted=0";
+        $query = "INSERT INTO " . $this->table_name . " SET name=:name, stash=:stash, deleted=0";
       
         $statement = $this->comm->prepare($query);
       
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->stash=htmlspecialchars(strip_tags($this->stash));
-        $this->color=htmlspecialchars(strip_tags($this->color));
       
         $statement->bindParam(":name", $this->name);
         $statement->bindParam(":stash", $this->stash);
-        $statement->bindParam(":color", $this->color);
         
         if($statement->execute()) return true;
       
@@ -42,7 +39,7 @@ class Category
     function read(){
       
         // single-reading query
-        $query = "SELECT name, stash, color, deleted
+        $query = "SELECT name, stash, deleted
             FROM " . $this->table_name . " WHERE name = :name LIMIT 0,1";
       
         $statement = $this->comm->prepare($query);
@@ -57,7 +54,6 @@ class Category
             $this->id = $item['id'];
             $this->name = $item['name'];
             $this->stash = $item['stash'];
-            $this->color = $item['color'];
             $this->deleted = $item['deleted'];
         }
 
@@ -69,19 +65,16 @@ class Category
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    name = :name,
-                    color = :color
+                    name = :name
                 WHERE
                     id = :id";
       
         $statement = $this->comm->prepare($query);
       
         $this->name=htmlspecialchars(strip_tags($this->name));
-        $this->color=htmlspecialchars(strip_tags($this->color));
         $this->id=htmlspecialchars(strip_tags($this->id));
       
         $statement->bindParam(":name", $this->name);
-        $statement->bindParam(":color", $this->color);
         $statement->bindParam(":id", $this->id);
       
         if($statement->execute()) return true;
@@ -179,22 +172,6 @@ class Category
     public function setStash($stash)
     {
         $this->stash = $stash;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getColor()
-    {
-        return $this->color;
-    }
-
-    /**
-     * @param mixed $color
-     */
-    public function setColor($color)
-    {
-        $this->color = $color;
     }
 
     /**

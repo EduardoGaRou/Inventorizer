@@ -7,6 +7,8 @@ header("Content-Type: application/json; charset=UTF-8");
 include "../resources/config/dbcomm.php";
 include "../Models/stash.php";
 
+session_start();
+
 $database = new Dbcomm();
 $db = $database->getConnection();
 
@@ -25,6 +27,7 @@ if(!empty($item)){
     foreach ($item as $unit) {
        // create display
         $coin = array(
+            "id" => $unit['id'],
             "name" => $unit['name'],
             "location" => $unit['location']
         );

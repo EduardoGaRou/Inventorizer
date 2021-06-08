@@ -25,7 +25,6 @@ CREATE TABLE CATEGORIES(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(255),
 	stash INT,
-	color VARCHAR(255),
 	deleted BOOL,
 	FOREIGN KEY (stash) REFERENCES STASHES(id)
 );
@@ -33,20 +32,20 @@ CREATE TABLE CATEGORIES(
 
 CREATE TABLE ITEMS(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	imageid INT,
 	name VARCHAR(255),
 	category INT,
 	description LONGTEXT,
-	status INT,
+	quantity INT,
+	status VARCHAR(255),
 	deleted BOOL,
 	FOREIGN KEY (category) REFERENCES CATEGORIES(id)
 );
 
-CREATE TABLE INVENTORY(
+/*CREATE TABLE INVENTORY(
 	itemid INT,
 	owner INT,
 	quantity INT,
 	FOREIGN KEY (itemid) REFERENCES ITEMS(id),
 	FOREIGN KEY	(owner) REFERENCES USERS(id),
 	PRIMARY KEY (itemid, owner)
-);
+);*/

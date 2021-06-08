@@ -46,3 +46,8 @@ function toStashFilteredCategories(id){
 function toStashFilteredItems(id){
     window.location = "/Inventorizer/fromStash/"+id+"/items";
 }
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    printStashes("");
+});
+

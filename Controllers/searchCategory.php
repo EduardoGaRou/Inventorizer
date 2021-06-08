@@ -4,30 +4,29 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 // database and user model
-include "dbcomm.php";
-include "user.php";
+include "../resources/config/dbcomm.php";
+include "../Models/stash.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$user = new User($db);
+$stash = new Stash($db);
 
-$user->username = isset($_GET['username']) ? $_GET['username'] : die();
+$stash->name = isset($_GET['name']) ? $_GET['name'] : die();
 
-$item = $user->search();
+$item = $stash->search($_GET['name'],$_SESSION['userid']);
 
 //var_dump($user);
 
 if(!empty($item)){
-
+    
     $display = array();
 
     foreach ($item as $unit) {
        // create display
         $coin = array(
-            "username" => $unit['username'],
-            "email" => $unit['email'],
-            "displayname" => $unit['displayname']
+            "name" => $unit['name'],
+            "location" => $unit['location']
         );
 
         array_push($display,$coin);

@@ -8,8 +8,6 @@ function printCategories(req) {
             var obj = JSON.parse(this.responseText);
             var result = '';
             obj.forEach((data) => {
-                var auxname = data.name.toString();
-                var auxloc = data.location.toString();
                 result += `<tr>
                             <td class="align-middle">${data.id}</td>
                             <td class="align-middle">${data.name}</td>

@@ -8,8 +8,6 @@ function printCategories(req,stid) {
             var obj = JSON.parse(this.responseText);
             var result = '';
             obj.forEach((data) => {
-                var auxname = data.name.toString();
-                var auxloc = data.location.toString();
                 result += `<tr>
                             <td class="align-middle">${data.id}</td>
                             <td class="align-middle">${data.name}</td>
@@ -33,7 +31,7 @@ function printCategories(req,stid) {
             document.getElementById('tableResultFC').innerHTML = 'No matches were found.';
         }
     };
-    xhttp.open("GET", "/Inventorizer/Controllers/filterCategory.php?name="+req+"&stash="+stid, true);
+    xhttp.open("GET", "/Inventorizer/Controllers/filterCategory.php?stash="+stid+"&name="+req, true);
     xhttp.send();
 }
 
@@ -100,6 +98,6 @@ function sendToDelete(stid) {
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    printCategories('');
+    printCategories(document.getElementById('InputFCategory').value,document.getElementById('var1').innerHTML);
     fillStashSelect();
 });

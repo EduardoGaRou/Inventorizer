@@ -75,7 +75,7 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search categories..." id="InputStash" onkeyup="printCategories(this.value)">
+                                <input class="form-control" type="text" value="" placeholder="Search categories..." id="InputStash" onkeyup="printCategories(this.value)">
                             </div>
                             <div class="col">
                                 <a type="button" data-toggle="modal" data-target="#newCategory"

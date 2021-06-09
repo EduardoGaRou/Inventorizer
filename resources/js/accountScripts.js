@@ -1,30 +1,30 @@
 var userValid = false; //AJAX
 var displayValid = false; //not empty
 var emailValid = false; //regexp
-var passValid = false; //regexp
+var oldPassValid = false;
+var newPassValid = false; //regexp
 var confirmValid = false; //compare
+
+var auxid = 0;
 
 function validateUser(usr){
 	var xhttp;
     if (usr.length == 0) {
-        document.getElementById("invalidUser").hidden = true;
-        document.getElementById('SignUser').classList.remove("is-invalid");
+        document.getElementById("invalidChangeUser").hidden = true;
+        document.getElementById('InputChangeUser').classList.remove("is-invalid");
         userValid = false;
-        validateAll();
         return;
     }
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && (this.status == 200 || this.status == 204)) {
-            document.getElementById("invalidUser").hidden = false;
-            document.getElementById('SignUser').classList.add("is-invalid");
+            document.getElementById("invalidChangeUser").hidden = false;
+            document.getElementById('InputChangeUser').classList.add("is-invalid");
             userValid = false;
-            validateAll();
         } else {
-            document.getElementById("invalidUser").hidden = true;
-            document.getElementById('SignUser').classList.remove("is-invalid");
+            document.getElementById("invalidChangeUser").hidden = true;
+            document.getElementById('InputChangeUser').classList.remove("is-invalid");
             userValid = true;
-            validateAll();
         }
     };
     xhttp.open("GET", "./Controllers/readUser.php?username="+usr, true);
@@ -33,34 +33,80 @@ function validateUser(usr){
 
 function validateDisplay(name){
 	if(name == "") {
-		document.getElementById("invalidDisplay").hidden = false;
-		document.getElementById('SignDisplay').classList.add("is-invalid");
+		document.getElementById("invalidChangeDisplay").hidden = false;
+		document.getElementById('InputChangeDisplay').classList.add("is-invalid");
 		displayValid = false;
-		validateAll();
 	} else {
-		document.getElementById("invalidDisplay").hidden = true;
-		document.getElementById('SignDisplay').classList.remove("is-invalid");
+		document.getElementById("invalidChangeDisplay").hidden = true;
+		document.getElementById('InputChangeDisplay').classList.remove("is-invalid");
 		displayValid = true;
-		validateAll();
 	}
 }
 
 function validateEmail(mail){
 	var regexE = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 	if(regexE.test(mail)){
-		document.getElementById("invalidEmail").hidden = true;
-		document.getElementById('SignEmail').classList.remove("is-invalid");
+		document.getElementById("invalidChangeEmail").hidden = true;
+		document.getElementById('InputChangeEmail').classList.remove("is-invalid");
 		emailValid = true;
-		validateAll();
 	} else {
-		document.getElementById("invalidEmail").hidden = false;
-		document.getElementById('SignEmail').classList.add("is-invalid");
+		document.getElementById("invalidChangeEmail").hidden = false;
+		document.getElementById('InputChangeEmail').classList.add("is-invalid");
 		emailValid = false;
-		validateAll();
 	}
 }
 
-function validatePass(pass){
+function placeValues(id,usr,disp,email){
+    document.getElementById('InputChangeUser').value = usr;
+    document.getElementById('InputChangeDisplay').value = disp;
+    document.getElementById('InputChangeEmail').value = email;
+    auxid = id;
+}
+
+function sendToUpdate(usr,name,email){
+	validateUser(usr);
+	validateDisplay(name);
+	validateEmail(email);
+	if(userValid && displayValid && emailValid)
+		window.location = "./Controllers/updateUser.php?id="+auxid+"&username="+usr+"&displayname="+name+"&email="+email;
+}
+
+
+
+function validateOldPass(usr,pass){
+	var xhttp;
+    if (pass.length == 0) {
+        document.getElementById("invalidOldPass").hidden = false;
+        document.getElementById('InputOldPass').classList.add("is-invalid");
+        oldPassValid = false;
+        return;
+    }
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && (this.status == 200)) {
+        	var obj = JSON.parse(this.responseText);
+            obj.forEach((data) => {
+	        	if(data.password === cipher(pass)) {
+		            document.getElementById("invalidOldPass").hidden = true;
+		            document.getElementById('InputOldPass').classList.remove("is-invalid");
+		            oldPassValid = true;
+		        } else {
+		        	document.getElementById("invalidOldPass").hidden = false;
+		            document.getElementById('InputOldPass').classList.add("is-invalid");
+		            oldPassValid = false;
+		        }
+		    });
+        } else {
+            document.getElementById("invalidOldPass").hidden = false;
+            document.getElementById('InputOldPass').classList.add("is-invalid");
+            oldPassValid = false;
+        }
+    };
+    xhttp.open("GET", "./Controllers/readUser.php?username="+usr, true);
+    xhttp.send();
+}
+
+function validateNewPass(pass){
 	var hasDigit = false;
 	var hasLower = false;
 	var hasUpper = false;
@@ -70,38 +116,39 @@ function validatePass(pass){
 		if(pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z') hasUpper = true;
 	}
 	if((pass.length > 7) && hasDigit && hasLower && hasUpper && (pass.length < 21)){
-		document.getElementById("invalidPass").hidden = true;
-		document.getElementById('SignPassword').classList.remove("is-invalid");
-		passValid = true;
-		validateAll();
+		document.getElementById("invalidNewPass").hidden = true;
+		document.getElementById('InputNewPass').classList.remove("is-invalid");
+		newPassValid = true;
 	} else {
-		document.getElementById("invalidPass").hidden = false;
-		document.getElementById('SignPassword').classList.add("is-invalid");
-		passValid = false;
-		validateAll();
+		document.getElementById("invalidNewPass").hidden = false;
+		document.getElementById('InputNewPass').classList.add("is-invalid");
+		newPassValid = false;
 	}
 }
 
 function validateConfirm(pass,conf){
 	if(pass === conf) {
-		document.getElementById("invalidConfirm").hidden = true;
-		document.getElementById('SignConfirm').classList.remove("is-invalid");
+		document.getElementById("invalidConfirmPass").hidden = true;
+		document.getElementById('InputConfirmPass').classList.remove("is-invalid");
 		confirmValid = true;
-		validateAll();
 	} else {
-		document.getElementById("invalidConfirm").hidden = false;
-		document.getElementById('SignConfirm').classList.add("is-invalid");
+		document.getElementById("invalidConfirmPass").hidden = false;
+		document.getElementById('InputConfirmPass').classList.add("is-invalid");
 		confirmValid = false;
-		validateAll();
 	}
 }
 
-function validateAll() {
-	if(userValid && displayValid && emailValid && passValid && confirmValid) {
-		document.getElementById("signupbtn").disabled = false;
-	} else {
-		document.getElementById("signupbtn").disabled = true;
-	}
+function placeSecretValues(id){
+    auxid = id;
+}
+
+function sendToSecretUpdate(usr,old,pass,conf){
+	validateOldPass(usr,old);
+	validateNewPass(pass);
+	validateConfirm(pass,conf);
+	console.log(oldPassValid+" "+newPassValid+" "+confirmValid);
+	if(oldPassValid && newPassValid && confirmValid)
+		window.location = "./Controllers/updateUser.php?id="+auxid+"&new="+cipher(pass);
 }
 
 function cipher(str){
@@ -122,6 +169,6 @@ function cipher(str){
     return revPass;
 }
 
-function signup(usr,disp,email,pass){
-	window.location = "./Controllers/createUser.php?username="+usr+"&displayname="+disp+"&email="+email+"&password="+cipher(pass);
+function sendToDelete(id){
+	window.location = "./Controllers/deleteUser.php?id="+id;
 }

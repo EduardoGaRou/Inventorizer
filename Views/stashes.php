@@ -280,7 +280,7 @@
                     <!--div class="col"-->
                         <button type="button" class="btn btn-danger mr-auto" onclick="sendToDelete()">
                             Delete
-                            <span class="material-icons float-left ml-1">
+                            <span class="material-icons float-right ml-1">
                                 delete
                             </span>
                         </button>

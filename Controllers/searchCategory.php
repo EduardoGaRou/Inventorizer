@@ -14,7 +14,7 @@ $db = $database->getConnection();
 
 $category = new Category($db);
 
-$stash->name = isset($_GET['name']) ? $_GET['name'] : die();
+$category->name = isset($_GET['name']) ? $_GET['name'] : die();
 
 $item = $category->search($_GET['name'],$_SESSION['userid']);
 
@@ -29,7 +29,7 @@ if(!empty($item)){
         $coin = array(
             "id" => $unit['id'],
             "name" => $unit['name'],
-            "stash" => $unit['stash']
+            "stash" => $unit['stid']
         );
 
         array_push($display,$coin);

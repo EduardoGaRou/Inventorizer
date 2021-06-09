@@ -75,7 +75,8 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search categories..." id="InputStash" onkeyup="printCategories(this.value,<?php echo $var1;?>)">
+                                <input class="form-control" type="text" value="" placeholder="Search categories..." id="InputFCategory" onkeyup="printCategories(this.value,<?php echo $var1;?>)">
+                                <p id="var1" hidden><?php echo $var1;?></p>
                             </div>
                             <div class="col">
                                 <a type="button" data-toggle="modal" data-target="#newCategory"

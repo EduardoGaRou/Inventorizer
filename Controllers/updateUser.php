@@ -10,17 +10,24 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include "../resources/config/dbcomm.php";
 include "../Models/user.php";
 
+session_start();
+
 $database = new Dbcomm();
 $db = $database->getConnection();
 
 $user = new User($db);
 
-if(isset($_SESSION['userid']) && isset($_SESSION['username']) && isset($_SESSION['displayid']) && isset($_SESSION['emailreg']) && isset($_SESSION['ciphpass'])) {
-	$data['id'] = $_SESSION['userid'];
-	$data['username'] = $_SESSION['username'];
-	$data['email'] = $_SESSION['emailreg'];
-	$data['displayname'] = $_SESSION['displayid'];
-	$data['password'] = $_SESSION['ciphpass'];
+if(isset($_GET['id']) && isset($_GET['username']) && isset($_GET['displayname']) && isset($_GET['email'])) {
+	$data['id'] = $_GET['id'];
+	$data['username'] = $_GET['username'];
+	$data['email'] = $_GET['email'];
+	$data['displayname'] = $_GET['displayname'];
+	$change = 0;
+}
+else if(isset($_GET['id']) && isset($_GET['new'])) {
+	$data['id'] = $_GET['id'];
+	$data['new'] = $_GET['new'];
+	$change = 1;
 }
 else {
 	echo "<script>window.location='/Inventorizer/userSettings'</script>";
@@ -28,13 +35,26 @@ else {
 
 //$data = json_decode(file_get_contents("php://input"));
 
-if(!empty($data->id)) {
+if(!empty($data['id'])) {
 	
-	$user->id = $data['id'];
-	$user->username = $data['username'];
-	$user->email = $data['email'];
-	$user->displayname = $data['displayname'];
-	$user->password = $data['password'];
+	if($change == 0) {
+		$user->id = $data['id'];
+		$user->username = $data['username'];
+		$_SESSION['username'] = $data['username'];
+		$user->email = $data['email'];
+		$_SESSION['emailreg'] = $data['email'];
+		$user->displayname = $data['displayname'];
+		$_SESSION['displayid'] = $data['displayname'];
+		$user->password = $_SESSION['ciphpass'];
+	}
+	else {
+		$user->id = $data['id'];
+		$user->username = $_SESSION['username'];
+		$user->email = $_SESSION['emailreg'];
+		$user->displayname = $_SESSION['displayid'];
+		$user->password = $data['new'];
+		$_SESSION['ciphpass'] = $data['new'];
+	}
 
 	if($user->update()) {
 		// response 202 - Accepted

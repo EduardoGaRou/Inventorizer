@@ -106,10 +106,10 @@ class Category
     function search($param,$usr){
 
         if(empty($param))
-            $query = "SELECT  * FROM " . $this->table_name . " NATURAL JOIN stashes WHERE user = " . $usr . " AND deleted = 0";
+            $query = "SELECT categories.id, categories.name, categories.stash, stashes.id as stid, user FROM " . $this->table_name . ", stashes WHERE categories.stash = stashes.id AND user = ".$usr." AND categories.deleted = 0";
         else
-            $query = "SELECT  *
-                FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
+            $query = "SELECT categories.id, categories.name, categories.stash, stashes.id as stid, user
+                FROM " . $this->table_name . ", stashes WHERE categories.stash = stashes.id AND categories.name LIKE '%" . $this->name . "%' AND user = ".$usr." AND categories.deleted = 0";
 
         $statement = $this->comm->prepare($query);
 
@@ -129,7 +129,7 @@ class Category
     function filter($param,$stid){
 
         if(empty($param))
-            $query = "SELECT * FROM " . $this->table_name . "WHERE stash = " . $stid . " AND deleted = 0;";
+            $query = "SELECT * FROM " . $this->table_name . " WHERE stash = " . $stid . " AND deleted = 0;";
         else
             $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND stash = " . $stid . " AND deleted = 0";
 

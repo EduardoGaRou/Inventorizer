@@ -37,7 +37,7 @@ if(!empty($data['id'])) {
 		http_response_code(202);
 		// message for user
 		//echo json_encode(array("log" => "The requested user was deleted! :^)"));
-		echo "<script>window.location='/Inventorizer/userSettings'</script>";
+		echo "<script>window.location='/Inventorizer/logout'</script>";
 	}
 	else {
 		// response 404 - Not Found

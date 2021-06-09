@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="./resources/css/box.png" />
     <link rel="stylesheet" type="text/css" href="./resources/css/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="./resources/js/loginScripts.js"></script>
+    <script type="text/javascript" src="./resources/js/categoryScripts.js"></script>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold text-center align-middle" href="#">
+                    <a class="nav-link font-weight-bold text-center align-middle" href="/Inventorizer/userSettings">
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
@@ -75,7 +75,7 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search">
+                                <input class="form-control" type="text" placeholder="Search categories..." id="InputStash" onkeyup="printCategories(this.value)">
                             </div>
                             <div class="col">
                                 <a type="button" data-toggle="modal" data-target="#newCategory"
@@ -95,15 +95,15 @@
                 <table class="table text-center">
                     <thead class="bg-light">
                         <tr>
+                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Items</th>
-                            <th scope="col">Stash</th>
+                            <th scope="col">Stash ID</th>
                             <th scope="col">View items</th>
                             <th scope="col">Modify</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-light">
-                        <tr>
+                    <tbody id="tableResultC" class="bg-light">
+                        <!--tr>
                             <td class="align-middle">Shoes</td>
                             <td class="align-middle">350</td>
                             <td class="align-middle">HQ</td>
@@ -128,7 +128,7 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
+                        </tr-->
                     </tbody>
                 </table>
             </div>
@@ -153,44 +153,19 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <label for="InputNewCategoryName">Category name:</label>
+                            <input type="text" class="form-control" id="InputNewCategoryName" placeholder="Ex. MyCategory">
+                            <p id="invalidNewCategoryName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <label for="InputNewCategoryStash">Stash it belongs to:</label>
+                            <select class="form-control" id="InputNewCategoryStash"></select>
+                            <p id="invalidNewCategoryStash" class="h5 invalid-feedback mt-2" hidden>A value must be selected.</p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                        <span class="material-icons float-right ml-1">
-                            close
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" onclick="sendToCreate(InputNewCategoryName.value,InputNewCategoryStash.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
                             save
@@ -218,44 +193,25 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <label for="InputNewCategoryName">Category name:</label>
+                            <input type="text" class="form-control" id="InputChangeCategoryName">
+                            <p id="invalidChangeCategoryName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <label for="InputNewCategoryStash">Stash it belongs to:</label>
+                            <select class="form-control" id="InputChangeCategoryStash"></select>
+                            <p id="invalidChangeCategoryName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                        <span class="material-icons float-right ml-1">
-                            close
+                    <button type="button" class="btn btn-danger mr-auto" onclick="sendToDelete()">
+                        Delete
+                        <span class="material-icons float-left ml-1">
+                            delete
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" onclick="sendToUpdate(InputChangeCategoryName.value,InputChangeCategoryStash.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
                             save

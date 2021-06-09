@@ -29,7 +29,7 @@ function printStashes(req) {
             });
             document.getElementById('tableResult').innerHTML = result;
         } else {
-            document.getElementById('tableResult').innerHTML = 'No matches with your search were found.';
+            document.getElementById('tableResult').innerHTML = 'No matches were found.';
         }
     };
     xhttp.open("GET", "./Controllers/searchStash.php?name="+req, true);
@@ -43,19 +43,39 @@ function placeValues(id,name,loc){
 }
 
 function sendToUpdate(name,loc) {
-    window.location = "./Controllers/updateStash.php?id="+auxid+"&name="+name+"&location="+loc;
+    if(document.getElementById('InputChangeStashName').value == ''){
+        document.getElementById("invalidChangeStashName").hidden = false;
+        document.getElementById('InputChangeStashName').classList.add("is-invalid");
+    } else if(document.getElementById('InputChangeStashLocation').value == '') {
+        document.getElementById("invalidChangeStashLocation").hidden = false;
+        document.getElementById('InputChangeStashLocation').classList.add("is-invalid");
+    } else {
+        document.getElementById("invalidChangeStashName").hidden = true;
+        document.getElementById('InputChangeStashName').classList.remove("is-invalid");
+        document.getElementById("invalidChangeStashLocation").hidden = true;
+        document.getElementById('InputChangeStashLocation').classList.remove("is-invalid");
+        window.location = "./Controllers/updateStash.php?id="+auxid+"&name="+name+"&location="+loc;
+    }
 }
 
 function sendToCreate(name,loc) {
-    window.location = "./Controllers/createStash.php?name="+name+"&location="+loc;
+    if(document.getElementById('InputNewStashName').value == ''){
+        document.getElementById("invalidNewStashName").hidden = false;
+        document.getElementById('InputNewStashName').classList.add("is-invalid");
+    } else if(document.getElementById('InputNewStashLocation').value == '') {
+        document.getElementById("invalidNewStashLocation").hidden = false;
+        document.getElementById('InputNewStashLocation').classList.add("is-invalid");
+    } else {
+        document.getElementById("invalidNewStashName").hidden = true;
+        document.getElementById('InputNewStashName').classList.remove("is-invalid");
+        document.getElementById("invalidNewStashLocation").hidden = true;
+        document.getElementById('InputNewStashLocation').classList.remove("is-invalid");
+        window.location = "./Controllers/createStash.php?name="+name+"&location="+loc;
+    }  
 }
 
 function sendToDelete() {
     window.location = "./Controllers/deleteStash.php?id="+auxid;
-}
-
-function toStashFilteredCategories(id){
-    //window.location = "/Inventorizer/fromStash/"+id+"/categories";
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{

@@ -18,7 +18,7 @@ if(isset($_GET['name']) && isset($_GET['stash'])){
     $category->stash = $_GET['stash'];
 } else die();
 
-$auxitem = $category->search($_GET['name'],$_GET['stash']);
+$auxitem = $category->filter($_GET['name'],$_GET['stash']);
 
 //var_dump($user);
 

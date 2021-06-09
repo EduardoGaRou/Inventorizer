@@ -5,16 +5,18 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // database and user model
 include "../resources/config/dbcomm.php";
-include "../Models/stash.php";
+include "../Models/category.php";
+
+session_start();
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$stash = new Stash($db);
+$category = new Category($db);
 
 $stash->name = isset($_GET['name']) ? $_GET['name'] : die();
 
-$item = $stash->search($_GET['name'],$_SESSION['userid']);
+$item = $category->search($_GET['name'],$_SESSION['userid']);
 
 //var_dump($user);
 
@@ -25,6 +27,7 @@ if(!empty($item)){
     foreach ($item as $unit) {
        // create display
         $coin = array(
+            "id" => $unit['id'],
             "name" => $unit['name'],
             "stash" => $unit['stash']
         );

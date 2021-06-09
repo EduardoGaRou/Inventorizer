@@ -19,7 +19,8 @@ if(isset($_GET['id'])) {
 	$data['id'] = $_GET['id'];
 }
 else {
-	echo "<script>window.location='/Inventorizer/categories'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
 //$data = json_decode(file_get_contents("php://input"));
@@ -37,14 +38,16 @@ if(!empty($data['id'])) {
 		http_response_code(202);
 		// message for user
 		//echo json_encode(array("log" => "The requested stash was deleted! :^)"));
-		echo "<script>window.location='/Inventorizer/categories'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 	else {
 		// response 404 - Not Found
 		http_response_code(404);
 		// message for user
 		//echo json_encode(array("log" => "Requested user was not found. :^("));
-		echo "<script>window.location='/Inventorizer/categories'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 }
 else {
@@ -52,7 +55,8 @@ else {
 	http_response_code(400);
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! ID must be indicated. :^("));
-	echo "<script>window.location='/Inventorizer/categories'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
 ?>

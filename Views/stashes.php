@@ -42,7 +42,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold text-center align-middle" href="#">
+                    <a class="nav-link font-weight-bold text-center align-middle" href="/Inventorizer/userSettings">
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
@@ -220,10 +220,12 @@
                         <div class="form-group">
                             <label for="InputNewStashName">Stash name:</label>
                             <input type="text" class="form-control" id="InputNewStashName" value="" placeholder="Ex. MyStash">
+                            <p id="invalidNewStashName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
                             <label for="InputNewStashLocation">Stash location:</label>
                             <input type="text" class="form-control" id="InputNewStashLocation" value="" placeholder="Ex. Mexico, D.F.">
+                            <p id="invalidNewStashLocation" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>
@@ -265,10 +267,12 @@
                         <div class="form-group">
                             <label for="InputChangeStashName">Stash name:</label>
                             <input type="text" class="form-control" id="InputChangeStashName">
+                            <p id="invalidChangeStashName" class="h5 invalid-feedback mt-3" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
                             <label for="InputChangeStashLocation">Stash location:</label>
                             <input type="text" class="form-control" id="InputChangeStashLocation">
+                            <p id="invalidChangeStashLocation" class="h5 invalid-feedback mt-3" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>

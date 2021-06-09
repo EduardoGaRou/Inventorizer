@@ -7,10 +7,10 @@
     <title>Inventorizer Web App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="../resources/css/box.png" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/global.css">
+    <link rel="icon" type="image/png" href="./resources/css/box.png" />
+    <link rel="stylesheet" type="text/css" href="./resources/css/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="../resources/js/loginScripts.js"></script>
+    <script type="text/javascript" src="./resources/js/userScripts.js"></script>
 </head>
 
 <body>
@@ -32,49 +32,27 @@
                     <a class="nav-link font-weight-bold text-center " href="/Inventorizer/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold text-center " href="/Inventorizer/stashes">Stashes</a>
+                    <a class="nav-link font-weight-bold text-center " href="/Inventorizer/stashes">Stash</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold text-center " href="/Inventorizer/categories">Categories</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link font-weight-bold text-center " href="/Inventorizer/items">Items</a>
                 </li>
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <!--Aqui comienza el cambio de la barra de navegacion-->
-                    <a class="nav-link dropdown-toggle font-weight-bold text-center align-middle" href="#"
-                        id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <span class="material-icons float-md-left float-md-right text-center align-middle ml-2">
+                <li class="nav-item active">
+                    <a class="nav-link font-weight-bold text-center align-middle" href="/Inventorizer/userSettings">
+                        <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
-                        <?php echo $_SESSION['displayid']; ?>
+                        <?php echo $_SESSION['displayid'];?>
                     </a>
-                    <!--Botones de accion del menu-->
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#view">
-                                View Account
-                            </button>
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modify">
-                                Modify Account
-                            </button>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#delete">
-                                Delete Account
-                            </button>
-                        </a>
-                    </div>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold text-center" href="/Inventorizer/logout">
+                    <a class="nav-link font-weight-bold text-center" href="#">
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             logout
                         </span>
@@ -84,30 +62,25 @@
             </ul>
         </div>
     </nav>
-    <!--Modal de ver cuenta-->
-    <div class="modal fade" id="view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel"> View Account</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!--CUERPO DEL MODAL-->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <span class="material-icons float-right ml-1">
-                            close
-                        </span>Close
-                    </button>
 
+    <div class="container">
+        <div class="jumbotron mt-5 bg-light">
+            <div class="row">
+                <div class="col">
+                    <h1>Account</h1>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col mb-1">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et delectus, ipsum eveniet architecto
+                        modi ipsam dolorum maxime adipisci. Sint odit laudantium dolorum libero explicabo a molestias
+                        iusto architecto, alias exercitationem!</p>
+                    <!--Cuerpo-->
                 </div>
             </div>
         </div>
     </div>
+
     <!--Modal de modificar cuenta-->
     <div class="modal fade" id="modify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -136,6 +109,7 @@
             </div>
         </div>
     </div>
+
     <!--Modal de eliminar cuenta-->
     <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

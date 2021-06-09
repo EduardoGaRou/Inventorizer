@@ -106,7 +106,7 @@ class Category
     function search($param,$usr){
 
         if(empty($param))
-            $query = "SELECT  * FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
+            $query = "SELECT  * FROM " . $this->table_name . " NATURAL JOIN stashes WHERE user = " . $usr . " AND deleted = 0";
         else
             $query = "SELECT  *
                 FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
@@ -125,6 +125,29 @@ class Category
         $this->displayname = $item['displayname'];*/
 
     }
+
+    function filter($param,$stid){
+
+        if(empty($param))
+            $query = "SELECT * FROM " . $this->table_name . "WHERE stash = " . $stid . " AND deleted = 0;";
+        else
+            $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND stash = " . $stid . " AND deleted = 0";
+
+        $statement = $this->comm->prepare($query);
+
+        $statement->execute();
+
+        $item = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $item;
+
+        /*$this->deleted = $item['deleted'];
+        $this->username = $item['username'];
+        $this->email = $item['email'];
+        $this->displayname = $item['displayname'];*/
+
+    }
+
 
     /**
      * @return mixed

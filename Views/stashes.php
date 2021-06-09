@@ -92,12 +92,10 @@
                 <table class="table text-center">
                     <thead class="bg-light">
                         <tr>
+                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Location</th>
-                            <th scope="col">Categories</th>
-                            <th scope="col">Items</th>
                             <th scope="col">View categories</th>
-                            <th scope="col">View items</th>
                             <th scope="col">Modify</th>
                         </tr>
                     </thead>
@@ -230,12 +228,12 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <!--button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Close
                         <span class="material-icons float-right ml-1">
                             close
                         </span>
-                    </button>
+                    </button-->
                     <button type="button" class="btn btn-primary" onclick="sendToCreate(InputNewStashName.value,InputNewStashLocation.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
@@ -275,24 +273,28 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="sendToDelete()">
-                        Delete
-                        <span class="material-icons float-right ml-1">
-                            delete
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                        <span class="material-icons float-right ml-1">
-                            close
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="sendToUpdate(InputChangeStashName.value,InputChangeStashLocation.value)">
-                        Save changes
-                        <span class="material-icons float-right ml-1">
-                            save
-                        </span>
-                    </button>
+                    <!--div class="col"-->
+                        <button type="button" class="btn btn-danger mr-auto" onclick="sendToDelete()">
+                            Delete
+                            <span class="material-icons float-left ml-1">
+                                delete
+                            </span>
+                        </button>
+                    <!--/div-->
+                        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                            <span class="material-icons float-right ml-1">
+                                close
+                            </span>
+                        </button-->
+                    <!--div class="col"-->
+                        <button type="button" class="btn btn-primary" onclick="sendToUpdate(InputChangeStashName.value,InputChangeStashLocation.value)">
+                            Save changes
+                            <span class="material-icons float-right ml-1">
+                                save
+                            </span>
+                        </button>
+                    <!--/div-->
                 </div>
             </div>
         </div>

@@ -10,7 +10,25 @@ function printStashes(req) {
             obj.forEach((data) => {
                 var auxname = data.name.toString();
                 var auxloc = data.location.toString();
-                result += `<tr><td class="align-middle">${data.name}</td><td class="align-middle">${data.location}</td><td class="align-middle"></td><td class="align-middle"></td><td class="align-middle"><form><button type="submit" class="btn btn-primary text-nowrap" style="min-width: 120px;" onclick="toStashFilteredCategories(${data.id})"><span class="material-icons float-right ml-1">category</span>Categories</button></form></td><td class="align-middle"><form><button type="submit" class="btn btn-primary text-nowrap" style="min-width: 120px;" onclick="toStashFilteredItems(${data.id})"><span class="material-icons float-right ml-1">view_in_ar</span>Items</button></form></td><td class="align-middle"><form><button type="button" data-toggle="modal" data-target="#modifyStash" class="btn btn-primary text-nowrap" style="min-width: 120px;" onclick="placeValues(${data.id},'${data.name}','${data.location}')"><span class="material-icons float-right ml-1">edit</span>Modify</button></form></td></tr>`;
+                result += `<tr>
+                            <td class="align-middle">${data.id}</td>
+                            <td class="align-middle">${data.name}</td>
+                            <td class="align-middle">${data.location}</td>
+                            <td class="align-middle">
+                                <form>
+                                    <button type="submit" class="btn btn-primary text-nowrap" style="min-width: 120px;" href="Inventorizer/fromStash/${data.id}/categories">
+                                        <span class="material-icons float-right ml-1">category</span>Categories
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="align-middle">
+                                <form>
+                                    <button type="button" data-toggle="modal" data-target="#modifyStash" class="btn btn-primary text-nowrap" style="min-width: 120px;" onclick="placeValues(${data.id},'${data.name}','${data.location}')">
+                                        <span class="material-icons float-right ml-1">edit</span>Modify
+                                    </button>
+                                </form>
+                            </td>
+                            </tr>`;
             });
             document.getElementById('tableResult').innerHTML = result;
         } else {
@@ -40,11 +58,7 @@ function sendToDelete() {
 }
 
 function toStashFilteredCategories(id){
-    window.location = "/Inventorizer/fromStash/"+id+"/categories";
-}
-
-function toStashFilteredItems(id){
-    window.location = "/Inventorizer/fromStash/"+id+"/items";
+    //window.location = "/Inventorizer/fromStash/"+id+"/categories";
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{

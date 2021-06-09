@@ -15,9 +15,10 @@ $db = $database->getConnection();
 
 $category = new Category($db);
 
-if(isset($_GET['id']) && isset($_GET['name'])) {
+if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['stash'])) {
 	$data['id'] = $_GET['id'];
 	$data['name'] = $_GET['name'];
+	$data['stash'] = $_GET['stash'];
 }
 else {
 	echo "<script>window.location='/Inventorizer/categories'</script>";
@@ -29,6 +30,7 @@ if(!empty($data['id'])) {
 	
 	$category->id = $data['id'];
 	$category->name = $data['name'];
+	$category->stash = $data['stash'];
 
 	if($category->update()) {
 		// response 202 - Accepted

@@ -5,35 +5,37 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // database and user model
 include "../resources/config/dbcomm.php";
-include "../Models/stash.php";
+include "../Models/item.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$stash = new Stash($db);
+$item = new Item($db);
 
-$stash->name = isset($_GET['name']) ? $_GET['name'] : die();
+$item->name = isset($_GET['name']) ? $_GET['name'] : die();
 
-$stash->read();
+$item->read();
 
 //var_dump($user);
 	  
-if(!empty($stash->id) && !empty($stash->name)){
+if(!empty($item->id) && !empty($item->name)){
     
     // create display
     $aux = array();
 
     $display = array(
-        "id" =>  $stash->id,
-        "name" => $stash->name,
-        "location" => $stash->location,
-        "user" => $stash->user
+        "id" =>  $item->id,
+        "name" => $item->name,
+        "category" => $item->category,
+        "description" => $item->description,
+        "quantity" => $item->quantity,
+        "status" => $item->status
     );
 
     array_push($aux, $display);
   
     // set response code - 200 OK
-    if($stash->deleted!=1) {
+    if($item->deleted!=1) {
         http_response_code(200);
     }
     else {

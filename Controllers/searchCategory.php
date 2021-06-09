@@ -26,7 +26,7 @@ if(!empty($item)){
        // create display
         $coin = array(
             "name" => $unit['name'],
-            "location" => $unit['location']
+            "stash" => $unit['stash']
         );
 
         array_push($display,$coin);

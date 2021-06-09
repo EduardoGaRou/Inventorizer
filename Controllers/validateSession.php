@@ -9,8 +9,8 @@ if(isset($_SESSION['lastAccess']) && isset($_SESSION['userid'])){
 	$now = date("Y-n-j H:i:s");
 	$elapsed = strtotime($now) - strtotime($lastAccess);
 
-	//Check elapsed seconds, 15 minutes of inactivity causes logout
-	if($elapsed >= 900) {
+	//Check elapsed seconds, 30 minutes of inactivity causes logout
+	if($elapsed >= 1800) {
 		session_unset();
 		session_destroy();
 		echo "<script>window.location = '/Inventorizer/logout'</script>";

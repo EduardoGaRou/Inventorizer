@@ -15,18 +15,15 @@ function printStashes(req) {
                             <td class="align-middle">${data.name}</td>
                             <td class="align-middle">${data.location}</td>
                             <td class="align-middle">
-                                <form>
-                                    <button type="submit" class="btn btn-primary text-nowrap" style="min-width: 120px;" href="Inventorizer/fromStash/${data.id}/categories">
-                                        <span class="material-icons float-right ml-1">category</span>Categories
-                                    </button>
-                                </form>
+                                <a href="/Inventorizer/fromStash/${data.id}/categories" class="btn btn-primary text-nowrap"
+                                style="min-width: 120px;">
+                                    <span class="material-icons float-right ml-1">category</span>Categories
+                                </a>
                             </td>
                             <td class="align-middle">
-                                <form>
-                                    <button type="button" data-toggle="modal" data-target="#modifyStash" class="btn btn-primary text-nowrap" style="min-width: 120px;" onclick="placeValues(${data.id},'${data.name}','${data.location}')">
-                                        <span class="material-icons float-right ml-1">edit</span>Modify
-                                    </button>
-                                </form>
+                                <button type="button" data-toggle="modal" data-target="#modifyStash" class="btn btn-primary text-nowrap" style="min-width: 120px;" onclick="placeValues(${data.id},'${data.name}','${data.location}')">
+                                    <span class="material-icons float-right ml-1">edit</span>Modify
+                                </button>
                             </td>
                             </tr>`;
             });

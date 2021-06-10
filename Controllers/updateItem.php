@@ -24,7 +24,8 @@ if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['category']) && iss
 	$data['status'] = $_GET['status'];
 }
 else {
-	echo "<script>window.location='/Inventorizer/items'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategories/".$_GET['filter']."/items'</script>";
+	else echo "<script>window.location='/Inventorizer/items'</script>";
 }
 
 //$data = json_decode(file_get_contents("php://input"));
@@ -43,14 +44,16 @@ if(!empty($data['id'])) {
 		http_response_code(202);
 		// message for user
 		//echo json_encode(array("log" => "The requested user was updated! :^)"));
-		echo "<script>window.location='/Inventorizer/items'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategories/".$_GET['filter']."/items'</script>";
+		else echo "<script>window.location='/Inventorizer/items'</script>";
 	}
 	else {
 		// response 404 - Not Found
 		http_response_code(404);
 		// message for user
 		//echo json_encode(array("log" => "ID not recognized for update! :^("));
-		echo "<script>window.location='/Inventorizer/items'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategories/".$_GET['filter']."/items'</script>";
+		else echo "<script>window.location='/Inventorizer/items'</script>";
 	}
 }
 else {
@@ -58,7 +61,8 @@ else {
 	http_response_code(400);
 	// message for user
 	//echo json_encode(array("log" => "Invalid ID entry to fulfill the service. :^("));
-	echo "<script>window.location='/Inventorizer/items'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategories/".$_GET['filter']."/items'</script>";
+	else echo "<script>window.location='/Inventorizer/items'</script>";
 }
 
 ?>

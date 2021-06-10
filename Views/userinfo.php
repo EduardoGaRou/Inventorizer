@@ -163,7 +163,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="InputOldPass">Old password:</label>
-                        <input type="password" class="form-control" id="InputOldPass">
+                        <input type="password" class="form-control" id="InputOldPass" onkeyup="validateOldPass('<?php echo $_SESSION['username'];?>',InputOldPass.value)">
                         <p id="invalidOldPass" class="h5 invalid-feedback mt-2" hidden>This password is incorrect.</p>
                     </div>
                     <div class="form-group">

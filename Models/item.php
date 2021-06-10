@@ -128,10 +128,31 @@ class Item
     function search($param,$usr){
 
         if(empty($param))
-            $query = "SELECT  * FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
+            $query = "SELECT items.id, items.name, items.category, description, items.status, quantity, categories.id as catid, categories.stash, stashes.id as stid, user FROM " . $this->table_name . ", categories, stashes WHERE categories.stash = stashes.id AND items.category = categories.id AND user = ".$usr." AND items.deleted = 0";
         else
-            $query = "SELECT  *
-                FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
+            $query = "SELECT items.id, items.name, items.category, description, items.status, quantity, categories.id as catid, categories.stash, stashes.id as stid, user FROM " . $this->table_name . ", categories, stashes WHERE categories.stash = stashes.id AND items.category = categories.id AND items.name LIKE '%" . $this->name . "%' AND user = ".$usr." AND items.deleted = 0";
+
+        $statement = $this->comm->prepare($query);
+
+        $statement->execute();
+
+        $item = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $item;
+
+        /*$this->deleted = $item['deleted'];
+        $this->username = $item['username'];
+        $this->email = $item['email'];
+        $this->displayname = $item['displayname'];*/
+
+    }
+
+    function filter($param,$catid){
+
+        if(empty($param))
+            $query = "SELECT * FROM " . $this->table_name . " WHERE category = " . $catid . " AND deleted = 0;";
+        else
+            $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND category = " . $catid . " AND deleted = 0";
 
         $statement = $this->comm->prepare($query);
 

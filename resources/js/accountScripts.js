@@ -86,7 +86,7 @@ function validateOldPass(usr,pass){
         if (this.readyState == 4 && (this.status == 200)) {
         	var obj = JSON.parse(this.responseText);
             obj.forEach((data) => {
-	        	if(data.password === cipher(pass)) {
+	        	if(data.password == cipher(pass)) {
 		            document.getElementById("invalidOldPass").hidden = true;
 		            document.getElementById('InputOldPass').classList.remove("is-invalid");
 		            oldPassValid = true;
@@ -143,10 +143,9 @@ function placeSecretValues(id){
 }
 
 function sendToSecretUpdate(usr,old,pass,conf){
-	validateOldPass(usr,old);
+	//validateOldPass(usr,old);
 	validateNewPass(pass);
 	validateConfirm(pass,conf);
-	console.log(oldPassValid+" "+newPassValid+" "+confirmValid);
 	if(oldPassValid && newPassValid && confirmValid)
 		window.location = "./Controllers/updateUser.php?id="+auxid+"&new="+cipher(pass);
 }

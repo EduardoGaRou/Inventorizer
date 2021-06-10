@@ -5,20 +5,20 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // database and user model
 include "../resources/config/dbcomm.php";
-include "../Models/category.php";
+include "../Models/item.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$category = new Category($db);
+$item = new Item($db);
 
 //$category->name = isset($_GET['name']) ? $_GET['name'] : die();
-if(isset($_GET['name']) && isset($_GET['stash'])){
-    $category->name = $_GET['name'];
-    $category->stash = $_GET['stash'];
+if(isset($_GET['name']) && isset($_GET['category'])){
+    $item->name = $_GET['name'];
+    $item->stash = $_GET['category'];
 } else die();
 
-$auxitem = $category->filter($_GET['name'],$_GET['stash']);
+$auxitem = $item->filter($_GET['name'],$_GET['category']);
 
 //var_dump($user);
 
@@ -31,7 +31,10 @@ if(!empty($auxitem)){
         $coin = array(
             "id" => $unit['id'],
             "name" => $unit['name'],
-            "stash" => $unit['stash']
+            "category" => $unit['category'],
+            "description" => $unit['description'],
+            "quantity" => $unit['quantity'],
+            "status" => $unit['status']
         );
 
         array_push($display,$coin);

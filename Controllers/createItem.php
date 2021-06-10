@@ -37,8 +37,10 @@ if(
 ){
 	//$user->id = $data->id;
 	$item->name = $data['name'];
-	$item->location = $data['location'];
-	$item->user = $data['user'];
+	$item->quantity = $data['quantity'];
+	$item->status = $data['status'];
+	$item->description = $data['description'];
+	$item->category = $data['category'];
 	$item->deleted = 0;
 
 	if($item->create()) {

@@ -79,6 +79,7 @@ class Item
                     " . $this->table_name . "
                 SET
                     name = :name,
+                    category = :category,
                     description = :description,
                     quantity = :quantity,
                     status = :status
@@ -88,6 +89,7 @@ class Item
         $statement = $this->comm->prepare($query);
       
         $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->category=htmlspecialchars(strip_tags($this->category));
         $this->description=htmlspecialchars(strip_tags($this->description));
         $this->quantity=htmlspecialchars(strip_tags($this->quantity));
         $this->status=htmlspecialchars(strip_tags($this->status));
@@ -95,6 +97,7 @@ class Item
       
         $statement->bindParam(":quantity", $this->quantity);
         $statement->bindParam(":name", $this->name);
+        $statement->bindParam(":category", $this->category);
         $statement->bindParam(":description", $this->description);
         $statement->bindParam(":status", $this->status);
         $statement->bindParam(":id", $this->id);

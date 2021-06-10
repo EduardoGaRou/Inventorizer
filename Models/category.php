@@ -65,16 +65,19 @@ class Category
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    name = :name
+                    name = :name,
+                    stash = :stash
                 WHERE
                     id = :id";
       
         $statement = $this->comm->prepare($query);
       
         $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->stash=htmlspecialchars(strip_tags($this->stash));
         $this->id=htmlspecialchars(strip_tags($this->id));
       
         $statement->bindParam(":name", $this->name);
+        $statement->bindParam(":stash", $this->stash);
         $statement->bindParam(":id", $this->id);
       
         if($statement->execute()) return true;

@@ -201,7 +201,7 @@
                         <div class="form-group">
                             <label for="InputNewCategoryStash">Stash it belongs to:</label>
                             <select class="form-control" id="InputChangeCategoryStash"></select>
-                            <p id="invalidChangeCategoryName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
+                            <p id="invalidChangeCategoryStash" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>

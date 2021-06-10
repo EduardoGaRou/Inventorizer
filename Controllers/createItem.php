@@ -23,7 +23,8 @@ if(isset($_GET['name']) && isset($_GET['category']) && isset($_GET['description'
 	$data['status'] = $_GET['status'];
 }
 else {
-	echo "<script>window.location='/Inventorizer/items'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+	else echo "<script>window.location='/Inventorizer/items'</script>";
 }
 
 //$data = json_decode();
@@ -49,7 +50,8 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "The requested user was created! :^)"));
 		//Navigate to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer/items'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+		else echo "<script>window.location='/Inventorizer/items'</script>";
 	}
 	else {
 		// response 500 - Internal Server Error
@@ -57,7 +59,8 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "An error occurred with the service. :^("));
 		//Navigate back to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer/items'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+		else echo "<script>window.location='/Inventorizer/items'</script>";
 	}
 }
 else {
@@ -66,6 +69,7 @@ else {
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
 	//Navigate back to 'registered.html' screen
-	echo "<script>window.location='/Inventorizer/items'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+	else echo "<script>window.location='/Inventorizer/items'</script>";
 }
 ?>

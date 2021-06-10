@@ -21,7 +21,7 @@ if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['stash'])) {
 	$data['stash'] = $_GET['stash'];
 }
 else {
-	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
 	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
@@ -38,7 +38,7 @@ if(!empty($data['id'])) {
 		http_response_code(202);
 		// message for user
 		//echo json_encode(array("log" => "The requested user was updated! :^)"));
-		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
 		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 	else {
@@ -46,7 +46,7 @@ if(!empty($data['id'])) {
 		http_response_code(404);
 		// message for user
 		//echo json_encode(array("log" => "ID not recognized for update! :^("));
-		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
 		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 }
@@ -55,7 +55,7 @@ else {
 	http_response_code(400);
 	// message for user
 	//echo json_encode(array("log" => "Invalid ID entry to fulfill the service. :^("));
-	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStashes/".$_GET['filter']."/categories'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
 	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 

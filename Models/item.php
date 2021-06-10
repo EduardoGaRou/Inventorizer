@@ -107,12 +107,7 @@ class Item
     function delete() {
 
         // "delete" query
-        $query = "UPDATE
-                    " . $this->table_name . "
-                SET
-                    deleted = 1
-                WHERE
-                    id = :id";
+        $query = "UPDATE " . $this->table_name . " SET deleted = 1 WHERE id = :id";
       
         $statement = $this->comm->prepare($query);
       

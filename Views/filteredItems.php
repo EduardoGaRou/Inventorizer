@@ -163,7 +163,7 @@
                         </div>
                         <div class="form-group">
                             <label for="InputNewItemQuantity">Desired quantity:</label>
-                            <input type="number" value=0 class="form-control" id="InputNewItemQuantity" placeholder="Ex. MyItem">
+                            <input type="number" min=1 value=1 class="form-control" id="InputNewItemQuantity" placeholder="Ex. MyItem">
                             <p id="invalidNewItemQuantity" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
@@ -225,7 +225,7 @@
                         </div>
                         <div class="form-group">
                             <label for="InputChangeItemQuantity">Desired quantity:</label>
-                            <input type="number" value=0 class="form-control" id="InputChangeItemQuantity">
+                            <input type="number" min=1 value=1 class="form-control" id="InputChangeItemQuantity">
                             <p id="invalidChangeItemQuantity" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">

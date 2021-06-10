@@ -85,20 +85,18 @@ class Category
     function delete() {
 
         // "delete" query
-        $query = "UPDATE
-                    " . $this->table_name . "
-                SET
-                    deleted = 1
-                WHERE
-                    id = :id";
+        $query = "UPDATE " . $this->table_name . " SET deleted = 1 WHERE id = :id";
+        $query2 = "UPDATE items SET deleted = 1 WHERE category = :id";
       
         $statement = $this->comm->prepare($query);
+        $statement2 = $this->comm->prepare($query2);
       
         $this->id=htmlspecialchars(strip_tags($this->id));
       
         $statement->bindParam(":id", $this->id);
+        $statement2->bindParam(":id", $this->id);
       
-        if($statement->execute()) return true;
+        if($statement->execute() && $statement2->execute()) return true;
       
         return false;
     }

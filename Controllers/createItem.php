@@ -8,42 +8,50 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // database and stash model
 include "../resources/config/dbcomm.php";
-include "../Models/stash.php";
+include "../Models/item.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$stash = new Stash($db);
+$item = new Item($db);
 
-if(isset($_GET['name']) && isset($_GET['location']) && isset($_SESSION['userid'])) {
+if(isset($_GET['name']) && isset($_GET['category']) && isset($_GET['description']) && isset($_GET['quantity']) && isset($_GET['status'])) {
 	$data['name'] = $_GET['name'];
-	$data['location'] = $_GET['location'];
-	$data['user'] = $_SESSION['userid'];
+	$data['category'] = $_GET['category'];
+	$data['description'] = $_GET['description'];
+	$data['quantity'] = $_GET['quantity'];
+	$data['status'] = $_GET['status'];
 }
 else {
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+	else echo "<script>window.location='/Inventorizer/items'</script>";
 }
 
 //$data = json_decode();
 
 if(
 	!empty($data['name']) &&
-	!empty($data['location']) &&
-	!empty($data['user'])
+	!empty($data['category']) &&
+	!empty($data['description']) &&
+	!empty($data['quantity']) &&
+	!empty($data['status'])
 ){
 	//$user->id = $data->id;
-	$stash->name = $data['name'];
-	$stash->location = $data['location'];
-	$stash->user = $data['user'];
-	$stash->deleted = 0;
+	$item->name = $data['name'];
+	$item->quantity = $data['quantity'];
+	$item->status = $data['status'];
+	$item->description = $data['description'];
+	$item->category = $data['category'];
+	$item->deleted = 0;
 
-	if($user->create()) {
+	if($item->create()) {
 		// response 201 - Created
 		http_response_code(201);
 		// message for user
 		//echo json_encode(array("log" => "The requested user was created! :^)"));
 		//Navigate to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+		else echo "<script>window.location='/Inventorizer/items'</script>";
 	}
 	else {
 		// response 500 - Internal Server Error
@@ -51,7 +59,8 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "An error occurred with the service. :^("));
 		//Navigate back to 'registered.html' screen
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+		else echo "<script>window.location='/Inventorizer/items'</script>";
 	}
 }
 else {
@@ -60,6 +69,7 @@ else {
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
 	//Navigate back to 'registered.html' screen
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromCategory/".$_GET['filter']."/items'</script>";
+	else echo "<script>window.location='/Inventorizer/items'</script>";
 }
 ?>

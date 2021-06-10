@@ -30,40 +30,42 @@ Route::add('/logout',function(){
 // Main page
 Route::add('/home',function(){
     include_once("./Controllers/validateSession.php");
-    include('./Views/home.html');
+    include('./Views/home.php');
 });
 
 // Items page inside home
 Route::add('/items',function(){
     include_once("./Controllers/validateSession.php");
-    include('./Views/items.html');
+    include('./Views/items.php');
 });
 
 // Categories page
 Route::add('/categories',function(){
     include_once("./Controllers/validateSession.php");
-    include('./Views/categories.html');
+    include('./Views/categories.php');
 });
 
 // Stashes page
 Route::add('/stashes',function(){ 
     include_once("./Controllers/validateSession.php");
-    include ('./Views/stashes.html');
+    include ('./Views/stashes.php');
+});
+
+Route::add('/userSettings',function(){
+    include_once("./Controllers/validateSession.php");
+    include('./Views/userinfo.php');
 });
 
 //Categories page (stash filter)
 Route::add('/fromStash/([0-9]*)/categories',function($var1){
     include_once("./Controllers/validateSession.php");
-});
-
-//Items page (stash filter)
-Route::add('/fromStash/([0-9]*)/items',function($var1){
-    include_once("./Controllers/validateSession.php");
+    include('./Views/filteredCategories.php');
 });
 
 //Items page (category filter)
 Route::add('/fromCategory/([0-9]*)/items',function($var1){
     include_once("./Controllers/validateSession.php");
+    include('./Views/filteredItems.php');
 });
 
 //echo "indexecho";

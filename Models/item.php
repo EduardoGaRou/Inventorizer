@@ -8,10 +8,10 @@ class Item
 
     // table fields
     public $id;
-    public $imageid;
     public $name;
     public $category;
     public $description;
+    public $quantity;
     public $status;
     public $deleted;
 
@@ -24,17 +24,17 @@ class Item
       
         // insertion query
         $query = "INSERT INTO " . $this->table_name . " 
-            SET imageid=:imageid, name=:name, category=:category, description=:description, status=:status, deleted=0";
+            SET name=:name, category=:category, description=:description, quantity=:quantity, status=:status, deleted=0";
       
         $statement = $this->comm->prepare($query);
       
-        $this->imageid=htmlspecialchars(strip_tags($this->imageid));
+        $this->imageid=htmlspecialchars(strip_tags($this->quantity));
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->category=htmlspecialchars(strip_tags($this->category));
         $this->description=htmlspecialchars(strip_tags($this->description));
         $this->status=htmlspecialchars(strip_tags($this->status));
       
-        $statement->bindParam(":imageid", $this->imageid);
+        $statement->bindParam(":quantity", $this->quantity);
         $statement->bindParam(":name", $this->name);
         $statement->bindParam(":category", $this->category);
         $statement->bindParam(":description", $this->description);
@@ -49,7 +49,7 @@ class Item
     function read(){
       
         // single-reading query
-        $query = "SELECT imageid, name, category, description, status, deleted
+        $query = "SELECT name, category, description, quantity, status, deleted
             FROM " . $this->table_name . " WHERE name = :name LIMIT 0,1";
       
         $statement = $this->comm->prepare($query);
@@ -62,10 +62,10 @@ class Item
 
         if($item) {
             $this->id = $item['id'];
-            $this->imageid = $item['imageid'];
             $this->name = $item['name'];
             $this->category = $item['category'];
             $this->description = $item['description'];
+            $this->quantity = $item['quantity'];
             $this->status = $item['status'];
             $this->deleted = $item['deleted'];
         }
@@ -78,22 +78,22 @@ class Item
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    imageid = :imageid,
                     name = :name,
                     description = :description,
+                    quantity = :quantity,
                     status = :status
                 WHERE
                     id = :id";
       
         $statement = $this->comm->prepare($query);
       
-        $this->imageid=htmlspecialchars(strip_tags($this->imageid));
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->description=htmlspecialchars(strip_tags($this->description));
+        $this->quantity=htmlspecialchars(strip_tags($this->quantity));
         $this->status=htmlspecialchars(strip_tags($this->status));
         $this->id=htmlspecialchars(strip_tags($this->id));
       
-        $statement->bindParam(":imageid", $this->imageid);
+        $statement->bindParam(":quantity", $this->quantity);
         $statement->bindParam(":name", $this->name);
         $statement->bindParam(":description", $this->description);
         $statement->bindParam(":status", $this->status);
@@ -107,12 +107,7 @@ class Item
     function delete() {
 
         // "delete" query
-        $query = "UPDATE
-                    " . $this->table_name . "
-                SET
-                    deleted = 1
-                WHERE
-                    id = :id";
+        $query = "UPDATE " . $this->table_name . " SET deleted = 1 WHERE id = :id";
       
         $statement = $this->comm->prepare($query);
       
@@ -128,10 +123,31 @@ class Item
     function search($param,$usr){
 
         if(empty($param))
-            $query = "SELECT  * FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
+            $query = "SELECT items.id, items.name, items.category, description, items.status, quantity, categories.id as catid, categories.stash, stashes.id as stid, user FROM " . $this->table_name . ", categories, stashes WHERE categories.stash = stashes.id AND items.category = categories.id AND user = ".$usr." AND items.deleted = 0";
         else
-            $query = "SELECT  *
-                FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
+            $query = "SELECT items.id, items.name, items.category, description, items.status, quantity, categories.id as catid, categories.stash, stashes.id as stid, user FROM " . $this->table_name . ", categories, stashes WHERE categories.stash = stashes.id AND items.category = categories.id AND items.name LIKE '%" . $this->name . "%' AND user = ".$usr." AND items.deleted = 0";
+
+        $statement = $this->comm->prepare($query);
+
+        $statement->execute();
+
+        $item = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $item;
+
+        /*$this->deleted = $item['deleted'];
+        $this->username = $item['username'];
+        $this->email = $item['email'];
+        $this->displayname = $item['displayname'];*/
+
+    }
+
+    function filter($param,$catid){
+
+        if(empty($param))
+            $query = "SELECT * FROM " . $this->table_name . " WHERE category = " . $catid . " AND deleted = 0;";
+        else
+            $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND category = " . $catid . " AND deleted = 0";
 
         $statement = $this->comm->prepare($query);
 
@@ -162,22 +178,6 @@ class Item
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIamgeid()
-    {
-        return $this->imageid;
-    }
-
-    /**
-     * @param mixed $imageid
-     */
-    public function setName($imageid)
-    {
-        $this->imageid = $imageid;
     }
 
     /**
@@ -226,6 +226,22 @@ class Item
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
     }
 
     /**

@@ -92,20 +92,21 @@ class Stash
     function delete() {
 
         // "delete" query
-        $query = "UPDATE
-                    " . $this->table_name . "
-                SET
-                    deleted = 1
-                WHERE
-                    id = :id";
+        $query = "UPDATE " . $this->table_name . " SET deleted = 1 WHERE id = :id";
+        $query2 = "UPDATE categories SET deleted = 1 WHERE stash = :id";
+        $query3 = "UPDATE items SET deleted = 1 WHERE items.category in (SELECT categories.id FROM stashes, categories WHERE categories.stash = stashes.id AND stashes.id = :id)";
       
         $statement = $this->comm->prepare($query);
+        $statement2 = $this->comm->prepare($query2);
+        $statement3 = $this->comm->prepare($query3);
       
         $this->id=htmlspecialchars(strip_tags($this->id));
       
         $statement->bindParam(":id", $this->id);
+        $statement2->bindParam(":id", $this->id);
+        $statement3->bindParam(":id", $this->id);
       
-        if($statement->execute()) return true;
+        if($statement->execute() && $statement2->execute() && $statement3->execute()) return true;
       
         return false;
     }
@@ -113,9 +114,9 @@ class Stash
     function search($param,$usr){
 
         if(empty($param))
-            $query = "SELECT  name, location FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
+            $query = "SELECT  * FROM " . $this->table_name . " WHERE user = " . $usr . " AND deleted = 0";
         else
-            $query = "SELECT  name, location
+            $query = "SELECT  *
                 FROM " . $this->table_name . " WHERE name LIKE '%" . $this->name . "%' AND user = " . $usr . " AND deleted = 0";
 
         $statement = $this->comm->prepare($query);

@@ -10,6 +10,8 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include "../resources/config/dbcomm.php";
 include "../Models/stash.php";
 
+session_start();
+
 $database = new Dbcomm();
 $db = $database->getConnection();
 
@@ -21,6 +23,8 @@ if(isset($_GET['name']) && isset($_GET['location']) && isset($_SESSION['userid']
 	$data['user'] = $_SESSION['userid'];
 }
 else {
+	//echo "<script>console.log('Params unset')</script>";
+	//echo "vars: ".$_GET['name'].", ".$_GET['location'].", ".$_SESSION['userid'];
 	echo "<script>window.location='/Inventorizer/stashes'</script>";
 }
 
@@ -37,7 +41,7 @@ if(
 	$stash->user = $data['user'];
 	$stash->deleted = 0;
 
-	if($user->create()) {
+	if($stash->create()) {
 		// response 201 - Created
 		http_response_code(201);
 		// message for user
@@ -51,6 +55,7 @@ if(
 		// message for user
 		//echo json_encode(array("log" => "An error occurred with the service. :^("));
 		//Navigate back to 'registered.html' screen
+		//echo "<script>console.log('Create failed')</script>";
 		echo "<script>window.location='/Inventorizer/stashes'</script>";
 	}
 }
@@ -60,6 +65,7 @@ else {
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! Parameters cannot be null. :^("));
 	//Navigate back to 'registered.html' screen
+	//echo "<script>console.log('Empty found')</script>";
 	echo "<script>window.location='/Inventorizer/stashes'</script>";
 }
 ?>

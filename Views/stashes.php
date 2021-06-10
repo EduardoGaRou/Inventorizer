@@ -5,12 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Inventorizer Web App</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="../resources/css/box.png" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/global.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="./resources/css/box.png" />
+    <link rel="stylesheet" type="text/css" href="./resources/css/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="../resources/js/loginScripts.js"></script>
+    <script type="text/javascript" src="./resources/js/stashScripts.js"></script>
 </head>
 
 <body>
@@ -21,8 +20,7 @@
         <a class="navbar-brand font-weight-bold text-center d-none d-lg-block" href="#">
             Inventorizer
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -44,11 +42,11 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold text-center align-middle" href="#">
+                    <a class="nav-link font-weight-bold text-center align-middle" href="/Inventorizer/userSettings">
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
-                        Account
+                        <?php echo $_SESSION['displayid']; ?>
                     </a>
                 </li>
                 <li class="nav-item active">
@@ -75,11 +73,10 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search stashes..." id="InputStash" onkeyup="printStashes(this.value)">
+                                <input class="form-control" type="text" value="" placeholder="Search stashes..." id="InputStash" onkeyup="printStashes(this.value)">
                             </div>
                             <div class="col">
-                                <a type="button" data-toggle="modal" data-target="#newStash"
-                                    class="btn btn-secondary float-right">
+                                <a type="button" data-toggle="modal" data-target="#newStash" class="btn btn-secondary float-right">
                                     <span class="material-icons float-right ml-2">
                                         add_circle_outline
                                     </span>
@@ -95,22 +92,21 @@
                 <table class="table text-center">
                     <thead class="bg-light">
                         <tr>
+                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Location</th>
-                            <th scope="col">Categories</th>
-                            <th scope="col">Items</th>
                             <th scope="col">View categories</th>
-                            <th scope="col">View items</th>
                             <th scope="col">Modify</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-light">
-                        <div id="tableResult" onload="printStashes(InputStash.value)">
+                    <tbody id="tableResult" class="bg-light" >
+                        <!--div id="tableResult" onload="printStashes(InputStash.value)"-->
                         <!--?php
-                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?'),true);
-                          
+                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='),true);
+                        
+                        $dbstashes = "";
                          foreach($allstashes as $currentItem){
-                            echo "<td class='align-middle'>$currentItem[name]</td>
+                            $dbstashes .= "<tr><td class='align-middle'>$currentItem[name]</td>
                             <td class='align-middle'>$currentItem[location]</td>
                             <td class='align-middle'>27</td>
                             <td class='align-middle'>350</td>
@@ -146,11 +142,13 @@
                                 </form>
                             </td>
                         </tr>";
-                         }
+                        }
+
+                        echo $dbstashes;
 
                          //echo $allstashes = file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name=xshitty');
                         ?-->
-                        </div>
+                        <!--/div-->
                         <!--?php
 
                         $allstashes = json_decode(file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/Inventorizer/Controllers/searchStash.php?name='.$var1), true);
@@ -221,25 +219,24 @@
                     <form>
                         <div class="form-group">
                             <label for="InputNewStashName">Stash name:</label>
-                            <input type="text" class="form-control" id="InputNewStashName"
-                                placeholder="Ex. MyStash">
+                            <input type="text" class="form-control" id="InputNewStashName" value="" placeholder="Ex. MyStash">
+                            <p id="invalidNewStashName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
                             <label for="InputNewStashLocation">Stash location:</label>
-                            <input type="text" class="form-control" id="InputNewStashLocation"
-                                placeholder="Ex. Mexico, D.F.">
+                            <input type="text" class="form-control" id="InputNewStashLocation" value="" placeholder="Ex. Mexico, D.F.">
+                            <p id="invalidNewStashLocation" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <!--button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Close
                         <span class="material-icons float-right ml-1">
                             close
                         </span>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                        onclick="sendToCreate(InputNewStashName.value,InputNewStashLocation.value)">
+                    </button-->
+                    <button type="button" class="btn btn-primary" onclick="sendToCreate(InputNewStashName.value,InputNewStashLocation.value)">
                         Save changes
                         <span class="material-icons float-right ml-1">
                             save
@@ -270,33 +267,38 @@
                         <div class="form-group">
                             <label for="InputChangeStashName">Stash name:</label>
                             <input type="text" class="form-control" id="InputChangeStashName">
+                            <p id="invalidChangeStashName" class="h5 invalid-feedback mt-3" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
                             <label for="InputChangeStashLocation">Stash location:</label>
                             <input type="text" class="form-control" id="InputChangeStashLocation">
+                            <p id="invalidChangeStashLocation" class="h5 invalid-feedback mt-3" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="sendToDelete()">
-                        Delete
-                        <span class="material-icons float-right ml-1">
-                            delete
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                        <span class="material-icons float-right ml-1">
-                            close
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-primary" 
-                        onclick="sendToUpdate(InputChangeStashName.value,InputChangeStashLocation.value)">
-                        Save changes
-                        <span class="material-icons float-right ml-1">
-                            save
-                        </span>
-                    </button>
+                    <!--div class="col"-->
+                        <button type="button" class="btn btn-danger mr-auto" onclick="sendToDelete()">
+                            Delete
+                            <span class="material-icons float-right ml-1">
+                                delete
+                            </span>
+                        </button>
+                    <!--/div-->
+                        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                            <span class="material-icons float-right ml-1">
+                                close
+                            </span>
+                        </button-->
+                    <!--div class="col"-->
+                        <button type="button" class="btn btn-primary" onclick="sendToUpdate(InputChangeStashName.value,InputChangeStashLocation.value)">
+                            Save changes
+                            <span class="material-icons float-right ml-1">
+                                save
+                            </span>
+                        </button>
+                    <!--/div-->
                 </div>
             </div>
         </div>
@@ -305,11 +307,9 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
 </body>
 

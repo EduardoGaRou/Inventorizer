@@ -8,43 +8,46 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // database and user model
 include "../resources/config/dbcomm.php";
-include "../Models/stash.php";
+include "../Models/category.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$stash = new Stash($db);
+$category = new Category($db);
 
-if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['location'])) {
+if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['stash'])) {
 	$data['id'] = $_GET['id'];
 	$data['name'] = $_GET['name'];
-	$data['location'] = $_GET['location'];
+	$data['stash'] = $_GET['stash'];
 }
 else {
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
 //$data = json_decode(file_get_contents("php://input"));
 
 if(!empty($data['id'])) {
 	
-	$stash->id = $data['id'];
-	$stash->name = $data['name'];
-	$stash->location = $data['location'];
+	$category->id = $data['id'];
+	$category->name = $data['name'];
+	$category->stash = $data['stash'];
 
-	if($user->update()) {
+	if($category->update()) {
 		// response 202 - Accepted
 		http_response_code(202);
 		// message for user
 		//echo json_encode(array("log" => "The requested user was updated! :^)"));
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 	else {
 		// response 404 - Not Found
 		http_response_code(404);
 		// message for user
 		//echo json_encode(array("log" => "ID not recognized for update! :^("));
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 }
 else {
@@ -52,7 +55,8 @@ else {
 	http_response_code(400);
 	// message for user
 	//echo json_encode(array("log" => "Invalid ID entry to fulfill the service. :^("));
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
 ?>

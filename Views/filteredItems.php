@@ -7,10 +7,10 @@
     <title>Inventorizer Web App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="../resources/css/box.png" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/global.css">
+    <link rel="icon" type="image/png" href="/Inventorizer/resources/css/box.png" />
+    <link rel="stylesheet" type="text/css" href="/Inventorizer/resources/css/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="../resources/js/loginScripts.js"></script>
+    <script type="text/javascript" src="/Inventorizer/resources/js/filterItemScripts.js"></script>
 </head>
 
 <body>
@@ -44,11 +44,11 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold text-center align-middle" href="#">
+                    <a class="nav-link font-weight-bold text-center align-middle" href="/Inventorizer/userSettings">
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
-                        Account
+                        <?php echo $_SESSION['displayid']; ?>
                     </a>
                 </li>
                 <li class="nav-item active">
@@ -75,7 +75,8 @@
                     <form action="">
                         <div class="form-row">
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Search">
+                                <input class="form-control" type="text" value="" placeholder="Search items..." id="InputFItem" onkeyup="printItems(this.value,<?php echo $var1;?>)">
+                                <p id="var1" hidden><?php echo $var1;?></p>
                             </div>
                             <div class="col">
                                 <a type="button" data-toggle="modal" data-target="#newItem"
@@ -95,15 +96,16 @@
                 <table class="table text-center">
                     <thead class="bg-light">
                         <tr>
+                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Stash</th>
                             <th scope="col">Category</th>
                             <th scope="col">Quantity</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Modify</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-light">
-                        <tr>
+                    <tbody id="tableResultFI" class="bg-light">
+                        <!--tr>
                             <td class="align-middle">Nike</td>
                             <td class="align-middle">HQ</td>
                             <td class="align-middle">Shoes</td>
@@ -119,14 +121,15 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
+                        </tr-->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
     <!-- Button trigger modal -->
-    <!-- Modal -->
+    <!-- Modal Create -->
     <div class="modal fade" id="newItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -144,44 +147,51 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <label for="InputNewItemName">Item name:</label>
+                            <input type="text" class="form-control" id="InputNewItemName" placeholder="Ex. MyItem">
+                            <p id="invalidNewItemName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <label for="InputNewItemCategory">Category it belongs to:</label>
+                            <select class="form-control" id="InputNewItemCategory"></select>
+                            <p id="invalidNewItemCategory" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputNewItemDescription">Item Description:</label>
+                            <textarea class="form-control" id="InputNewItemDescription" rows="3"></textarea>
+                            <p id="invalidNewItemDescription" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputNewItemQuantity">Desired quantity:</label>
+                            <input type="number" min=1 value=1 class="form-control" id="InputNewItemQuantity" placeholder="Ex. MyItem">
+                            <p id="invalidNewItemQuantity" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputNewItemStatus">Item initial status:</label>
+                            <select class="form-control" id="InputNewItemStatus">
+                                <option selected>...</option>
+                                <option>On stash</option>
+                                <option>Lent</option>
+                                <option>Pending</option>
+                                <option>Damaged</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <p id="invalidNewItemStatus" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" onclick="sendToCreate(InputNewItemName.value,InputNewItemCategory.value,InputNewItemDescription.value,InputNewItemQuantity.value,InputNewItemStatus.value,<?php echo $var1;?>)">
+                        Save changes
+                        <span class="material-icons float-right ml-1">
+                            save
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal -->
+
+    <!-- Modal Modify -->
     <div class="modal fade" id="modifyItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -199,43 +209,72 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <label for="InputChangeItemName">Item name:</label>
+                            <input type="text" class="form-control" id="InputChangeItemName">
+                            <p id="invalidChangeItemName" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <label for="InputChangeItemCategory">Category it belongs to:</label>
+                            <select class="form-control" id="InputChangeItemCategory"></select>
+                            <p id="invalidChangeItemCategory" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputChangeItemDescription">Item Description:</label>
+                            <textarea class="form-control" id="InputChangeItemDescription" rows="3"></textarea>
+                            <p id="invalidChangeItemDescription" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputChangeItemQuantity">Desired quantity:</label>
+                            <input type="number" min=1 value=1 class="form-control" id="InputChangeItemQuantity">
+                            <p id="invalidChangeItemQuantity" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputChangeItemStatus">Item status:</label>
+                            <select class="form-control" id="InputChangeItemStatus">
+                                <option>On stash</option>
+                                <option>Lent</option>
+                                <option>Pending</option>
+                                <option>Damaged</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <p id="invalidChangeItemStatus" class="h5 invalid-feedback mt-2" hidden>This value cannot be null.</p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-danger mr-auto" onclick="sendToDelete(<?php echo $var1;?>)">
+                        Delete
+                        <span class="material-icons float-right ml-1">
+                            delete
+                        </span>
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="sendToUpdate(InputChangeItemName.value,InputChangeItemCategory.value,InputChangeItemDescription.value,InputChangeItemQuantity.value,InputChangeItemStatus.value,<?php echo $var1;?>)">
+                        Save changes
+                        <span class="material-icons float-right ml-1">
+                            save
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal Description -->
+    <div class="modal fade" id="itemDescription" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="DescriptionTitle"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="itemDetails"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>

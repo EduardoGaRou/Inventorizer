@@ -44,11 +44,11 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold text-center align-middle" href="#">
+                    <a class="nav-link font-weight-bold text-center align-middle" href="/Inventorizer/userSettings">
                         <span class="material-icons float-md-left float-md-right text-center align-middle">
                             account_circle
                         </span>
-                        Account
+                        <?php echo $_SESSION['displayid']; ?>
                     </a>
                 </li>
                 <li class="nav-item active">

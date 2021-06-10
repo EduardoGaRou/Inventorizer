@@ -22,6 +22,7 @@ if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['location'])) {
 }
 else {
 	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	//echo "<script>console.log('empty values')</script>";
 }
 
 //$data = json_decode(file_get_contents("php://input"));
@@ -32,7 +33,7 @@ if(!empty($data['id'])) {
 	$stash->name = $data['name'];
 	$stash->location = $data['location'];
 
-	if($user->update()) {
+	if($stash->update()) {
 		// response 202 - Accepted
 		http_response_code(202);
 		// message for user
@@ -45,6 +46,7 @@ if(!empty($data['id'])) {
 		// message for user
 		//echo json_encode(array("log" => "ID not recognized for update! :^("));
 		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		//echo "<script>console.log('Failed')</script>";
 	}
 }
 else {
@@ -53,6 +55,7 @@ else {
 	// message for user
 	//echo json_encode(array("log" => "Invalid ID entry to fulfill the service. :^("));
 	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	//echo "<script>console.log('Bad id')</script>";
 }
 
 ?>

@@ -5,18 +5,20 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // database and user model
 include "../resources/config/dbcomm.php";
-include "../Models/item.php";
-
-session_start();
+include "../Models/category.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$item = new Item($db);
+$category = new Category($db);
 
-$item->name = isset($_GET['name']) ? $_GET['name'] : die();
+//$category->name = isset($_GET['name']) ? $_GET['name'] : die();
+if(isset($_GET['name']) && isset($_GET['stash'])){
+    $category->name = $_GET['name'];
+    $category->stash = $_GET['stash'];
+} else die();
 
-$auxitem = $item->search($_GET['name'],$_SESSION['userid']);
+$auxitem = $category->filter($_GET['name'],$_GET['stash']);
 
 //var_dump($user);
 
@@ -29,10 +31,7 @@ if(!empty($auxitem)){
         $coin = array(
             "id" => $unit['id'],
             "name" => $unit['name'],
-            "category" => $unit['category'],
-            "description" => $unit['description'],
-            "quantity" => $unit['quantity'],
-            "status" => $unit['status']
+            "stash" => $unit['stash']
         );
 
         array_push($display,$coin);

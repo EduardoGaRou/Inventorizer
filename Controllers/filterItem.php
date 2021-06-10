@@ -7,16 +7,18 @@ header("Content-Type: application/json; charset=UTF-8");
 include "../resources/config/dbcomm.php";
 include "../Models/item.php";
 
-session_start();
-
 $database = new Dbcomm();
 $db = $database->getConnection();
 
 $item = new Item($db);
 
-$item->name = isset($_GET['name']) ? $_GET['name'] : die();
+//$category->name = isset($_GET['name']) ? $_GET['name'] : die();
+if(isset($_GET['name']) && isset($_GET['category'])){
+    $item->name = $_GET['name'];
+    $item->stash = $_GET['category'];
+} else die();
 
-$auxitem = $item->search($_GET['name'],$_SESSION['userid']);
+$auxitem = $item->filter($_GET['name'],$_GET['category']);
 
 //var_dump($user);
 

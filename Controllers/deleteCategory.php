@@ -8,43 +8,46 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // database and stash model
 include "../resources/config/dbcomm.php";
-include "../Models/stash.php";
+include "../Models/category.php";
 
 $database = new Dbcomm();
 $db = $database->getConnection();
 
-$stash = new Stash($db);
+$category = new Category($db);
 
 if(isset($_GET['id'])) {
 	$data['id'] = $_GET['id'];
 }
 else {
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
 //$data = json_decode(file_get_contents("php://input"));
 
 if(!empty($data['id'])) {
 	
-	$stash->id = $data->id;
+	$category->id = $data['id'];
 	/*$user->username = $data->username;
 	$user->email = $data->email;
 	$user->displayname = $data->displayname;
 	$user->password = $data->password;*/
 
-	if($stash->delete()) {
+	if($category->delete()) {
 		// response 202 - Accepted
 		http_response_code(202);
 		// message for user
 		//echo json_encode(array("log" => "The requested stash was deleted! :^)"));
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 	else {
 		// response 404 - Not Found
 		http_response_code(404);
 		// message for user
 		//echo json_encode(array("log" => "Requested user was not found. :^("));
-		echo "<script>window.location='/Inventorizer/stashes'</script>";
+		if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+		else echo "<script>window.location='/Inventorizer/categories'</script>";
 	}
 }
 else {
@@ -52,7 +55,8 @@ else {
 	http_response_code(400);
 	// message for user
 	//echo json_encode(array("log" => "Invalid entry! ID must be indicated. :^("));
-	echo "<script>window.location='/Inventorizer/stashes'</script>";
+	if(isset($_GET['filter'])) echo "<script>window.location='/Inventorizer/fromStash/".$_GET['filter']."/categories'</script>";
+	else echo "<script>window.location='/Inventorizer/categories'</script>";
 }
 
 ?>

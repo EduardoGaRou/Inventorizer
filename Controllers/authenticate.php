@@ -16,7 +16,9 @@ if(isset($_GET['username']) && isset($_GET['pwd'])){
 				session_start();
 				$_SESSION['userid'] = $read_req[0]['id'];
 				$_SESSION['username'] = $read_req[0]['username'];
-				$_SESSION['displayid'] = $read_req[0]['displayname']; 
+				$_SESSION['displayid'] = $read_req[0]['displayname'];
+				$_SESSION['emailreg'] = $read_req[0]['email'];
+				$_SESSION['ciphpass'] = $read_req[0]['password'];
 				$_SESSION['lastAccess'] = date("Y-n-j H:i:s");
 				echo "<script>window.location = '/Inventorizer/home'</script>";
 			}
